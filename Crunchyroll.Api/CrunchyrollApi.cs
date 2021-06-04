@@ -51,8 +51,7 @@ namespace Crunchyroll.Api
         private async Task<SessionInfo> StartSession()
         {
             var uri = "/start_session.0.json";
-            var respone = await this.httpClientWrapper.DoAsync(c => c.PostAsJsonAsync(uri, new StartSessionRequest(this.locale) {
-            }));
+            var respone = await this.httpClientWrapper.DoAsync(c => c.PostAsJsonAsync(uri, new StartSessionRequest(this.locale)));
             return await this.GetDataFromResponse<SessionInfo>(respone);
         }
 
