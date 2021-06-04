@@ -14,7 +14,7 @@ namespace Crunchyroll.Api
 
         public CrunchyrollHttpClientWrapper(string baseUri)
         {
-            this.client = new HttpClient() { BaseAddress = new Uri(baseUri.TrimEnd('/', '\\')) };
+            this.client = new HttpClient { BaseAddress = new Uri(baseUri.TrimEnd('/', '\\')) };
             this.client.DefaultRequestHeaders.Accept.Clear();
             this.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }

@@ -2,7 +2,7 @@
 {
     public class StartSessionRequest: RequestBase
     {
-        public StartSessionRequest(string locale, string deviceId, string deviceType, string accessToken) : base(locale, string.Empty)
+        public StartSessionRequest(string locale, string deviceId, string deviceType, string accessToken): base(locale)
         {
             this.DeviceId = deviceId;
             this.DeviceType = deviceType;
