@@ -31,45 +31,36 @@ namespace Crunchyroll.Api
             var cultureInfo = new CultureInfo(locale);
             this.locale = cultureInfo.Name.Replace("-", string.Empty);
             this.httpClientWrapper = new CrunchyrollHttpClientWrapper(baseUri);
-            this.InitApi(username, password).GetAwaiter().GetResult();
+            InitApi(username, password).GetAwaiter().GetResult();
         }
 
         private async Task InitApi(string username, string password)
         {
-            var session = await this.StartSession();
+            var session = await StartSession();
             this.sessionId = session.SessionId;
-            var login = await this.Login(username, password);
+            var login = await Login(username, password);
         }
 
         private async Task<LoginInfo> Login(string email, string password)
         {
-            var uri = new Uri("/login");
+            var uri = "login";
             var respone = await this.httpClientWrapper.DoAsync(c => c.PostAsJsonAsync(uri, new LoginRequest(this.locale, this.sessionId, email, password)));
-            return await this.GetDataFromResponse<LoginInfo>(respone);
+            return await GetDataFromResponse<LoginInfo>(respone);
         }
 
         private async Task<SessionInfo> StartSession()
         {
-            var uri = new Uri("/start_session");
-            var respone = await this.httpClientWrapper.DoAsync(c => c.PostAsJsonAsync(uri, new StartSessionRequest(this.locale) {
+            var uri = "start_session";
+            var respone = await this.httpClientWrapper.DoAsync(c => c.PostAsJsonAsync(uri, new StartSessionRequest(this.locale)
+            {
             }));
-            return await this.GetDataFromResponse<SessionInfo>(respone);
+            return await GetDataFromResponse<SessionInfo>(respone);
         }
 
 
         public void Dispose()
         {
             //TODO: logout
-        }
-
-        public Task GetInfo()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task ListQueue(MediaType mediaType = MediaType.Default)
-        {
-            throw new NotImplementedException();
         }
 
         private async Task<T> GetDataFromResponse<T>(HttpResponseMessage httpResponse)
@@ -82,32 +73,42 @@ namespace Crunchyroll.Api
             });
         }
 
-        public Task AddToQueue()
+        public Task<string> GetListMedia()
         {
             throw new NotImplementedException();
         }
 
-        public Task GetListMedia()
+        public Task<string> GetListSeries()
         {
             throw new NotImplementedException();
         }
 
-        public Task GetListSeries()
+        public Task<string> GetListLocales()
         {
             throw new NotImplementedException();
         }
 
-        public Task GetListLocales()
+        public Task<string> SetLog()
         {
             throw new NotImplementedException();
         }
 
-        public Task SetLog()
+        public Task<string> AddToQueue(int seriesId)
         {
             throw new NotImplementedException();
         }
 
-        public Task SearchSeries()
+        public Task<string> ListQueue(MediaType mediaType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> GetInfo()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> SearchSeries(string query, MediaType mediaType = MediaType.Default)
         {
             throw new NotImplementedException();
         }

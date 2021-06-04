@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "Crunchyroll.Api.Test": {
+      "commandName": "Project"
+    }
+  }
+}

@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crunchyroll.Api", "Crunchyroll.Api\Crunchyroll.Api.csproj", "{5D438279-3A99-4336-AAB2-987BFEB55300}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crunchyroll.Api", "Crunchyroll.Api\Crunchyroll.Api.csproj", "{5D438279-3A99-4336-AAB2-987BFEB55300}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crunchyroll.Api.Test", "Crunchyroll.Api.Test\Crunchyroll.Api.Test.csproj", "{9A4BBAFF-035D-49A9-B03E-1E201AABE989}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{5D438279-3A99-4336-AAB2-987BFEB55300}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D438279-3A99-4336-AAB2-987BFEB55300}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D438279-3A99-4336-AAB2-987BFEB55300}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A4BBAFF-035D-49A9-B03E-1E201AABE989}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A4BBAFF-035D-49A9-B03E-1E201AABE989}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A4BBAFF-035D-49A9-B03E-1E201AABE989}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A4BBAFF-035D-49A9-B03E-1E201AABE989}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
