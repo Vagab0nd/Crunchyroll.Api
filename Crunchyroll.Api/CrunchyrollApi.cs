@@ -5,18 +5,16 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace Crunchyroll.Api
 {
     public class CrunchyrollApi : ICrunchyrollApi
     {
         private const string baseUri = "https://api.crunchyroll.com/";
-        private const string apiVersion = "1.1.21.0";
+        private const string apiVersion = "1.3.1.0";
         private const string apiToken = "LNDJgOit5yaRIWN";
         private const string deviceType = "com.crunchyroll.windows.desktop";
 
@@ -57,13 +55,21 @@ namespace Crunchyroll.Api
 
         private async Task<LoginInfo> Login(string email, string password)
         {
-            var respone = await this.httpClientWrapper.DoAsync(c => c.PostAsync("/login.0.json", new LoginRequest(this.locale, this.sessionId, email, password), jsonMediaTypeFormatter));
-            return await GetDataFromResponse<LoginInfo>(respone);
+            var loginRequest = new LoginRequest(this.locale, this.sessionId, email, password);
+            var respone = await this.httpClientWrapper.DoAsync(c => 
+                c.PostFormUrlEncoded(
+                    "/login.0.json", 
+                    this.ObjToQueryParams(loginRequest),
+                    GetDataFromResponse<LoginInfo>
+                )
+            );
+            return respone;
         }
 
         private async Task<SessionInfo> StartSession()
         {
-            var uri = QueryHelpers.AddQueryString("/start_session.0.json", this.ObjToQueryParams(new StartSessionRequest(this.locale, this.deviceId, deviceType, apiToken)));
+            var startSessionRequest = new StartSessionRequest(this.locale, this.deviceId, deviceType, apiToken);
+            var uri = QueryHelpers.AddQueryString("/start_session.0.json", this.ObjToQueryParams(startSessionRequest));
             var respone = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
             return await this.GetDataFromResponse<SessionInfo>(respone);
         }
@@ -76,8 +82,14 @@ namespace Crunchyroll.Api
 
         private async Task<T> GetDataFromResponse<T>(HttpResponseMessage httpResponse)
         {
-            var response = await httpResponse.Content.ReadAsAsync<ResponseBase>();
-            var req = await httpResponse.RequestMessage.Content.ReadAsStringAsync();
+            string req, res;
+            if (httpResponse.RequestMessage.Method == HttpMethod.Post)
+            {
+                req = await httpResponse.RequestMessage?.Content?.ReadAsStringAsync();
+            }
+            res = await httpResponse.Content?.ReadAsStringAsync();
+
+            var response = await httpResponse.Content.ReadAsAsync<ResponseBase>();            
             return JsonConvert.DeserializeObject<T>(response.Data.ToString(), this.jsonSerializerSettings);
         }
 

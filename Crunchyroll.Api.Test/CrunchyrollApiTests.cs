@@ -15,7 +15,7 @@ namespace Crunchyroll.Api.Test
         [TestInitialize]
         public void CrunchyrollApiTestsInit()
         {
-            this.target = new CrunchyrollApi(TestContext.Properties["Login"].ToString(), TestContext.Properties["Pass"].ToString(), "PL-pl");
+            this.target = new CrunchyrollApi(TestContext.Properties["Login"].ToString(), TestContext.Properties["Pass"].ToString(), "en-US");
         }
 
         [TestMethod]

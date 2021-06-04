@@ -8,6 +8,12 @@ namespace Crunchyroll.Api.Models
     {
         public LoginRequest(string locale, string sessionId, string email, string password) : base(locale, sessionId)
         {
+            this.Account = email;
+            this.Password = password;
         }
+
+        public string Account { get; set; }
+
+        public string Password { get; set; }
     }
 }
