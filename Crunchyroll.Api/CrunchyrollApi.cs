@@ -57,13 +57,12 @@ namespace Crunchyroll.Api
         {
             var loginRequest = new LoginRequest(this.locale, this.sessionId, email, password);
             var respone = await this.httpClientWrapper.DoAsync(c => 
-                c.PostFormUrlEncoded(
+                c.PostFormUrlEncoded<LoginInfo>(
                     "/login.0.json", 
-                    this.ObjToQueryParams(loginRequest),
-                    GetDataFromResponse<LoginInfo>
+                    this.ObjToQueryParams(loginRequest)
                 )
             );
-            return respone;
+            return await this.GetDataFromResponse<LoginInfo>(respone);
         }
 
         private async Task<SessionInfo> StartSession()
