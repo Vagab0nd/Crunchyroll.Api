@@ -43,14 +43,14 @@ namespace Crunchyroll.Api
 
         private async Task<LoginInfo> Login(string email, string password)
         {
-            var uri = new Uri("/login");
+            var uri = "/login.0.json";
             var respone = await this.httpClientWrapper.DoAsync(c => c.PostAsJsonAsync(uri, new LoginRequest(this.locale, this.sessionId, email, password)));
             return await this.GetDataFromResponse<LoginInfo>(respone);
         }
 
         private async Task<SessionInfo> StartSession()
         {
-            var uri = new Uri("/start_session");
+            var uri = "/start_session.0.json";
             var respone = await this.httpClientWrapper.DoAsync(c => c.PostAsJsonAsync(uri, new StartSessionRequest(this.locale) {
             }));
             return await this.GetDataFromResponse<SessionInfo>(respone);
