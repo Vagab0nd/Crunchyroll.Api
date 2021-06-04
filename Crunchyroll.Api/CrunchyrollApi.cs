@@ -1,13 +1,9 @@
 ﻿using Crunchyroll.Api.Models;
-using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
-using System.Net.Http.Formatting;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Crunchyroll.Api
@@ -84,6 +80,36 @@ namespace Crunchyroll.Api
                 ContractResolver = contractResolver,
                 Formatting = Formatting.Indented
             });
+        }
+
+        public Task AddToQueue()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task GetListMedia()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task GetListSeries()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task GetListLocales()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SetLog()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SearchSeries()
+        {
+            throw new NotImplementedException();
         }
     }
 }
