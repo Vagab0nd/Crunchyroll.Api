@@ -42,7 +42,7 @@ namespace Crunchyroll.Api
         {
             var session = await this.StartSession();
             this.sessionId = session.SessionId;
-            await this.Login(username, password);
+            var login = await this.Login(username, password);
         }
 
         private async Task<LoginInfo> Login(string email, string password)
@@ -63,7 +63,7 @@ namespace Crunchyroll.Api
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            //TODO: logout
         }
 
         public Task GetInfo()
