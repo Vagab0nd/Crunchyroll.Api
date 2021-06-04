@@ -14,6 +14,6 @@
 
         public string SessionId { get; set; }
 
-        public string Version { get; } = "0";
+        public string Version { get; } = "1.1.21.0";
     }
 }
