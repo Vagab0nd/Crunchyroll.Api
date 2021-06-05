@@ -141,6 +141,6 @@ namespace Crunchyroll.Api.Models
         /// <summary>
         /// The URL to the media on crunchyroll.com
         /// </summary>
-        public string url { get; set; }
+        public string Url { get; set; }
     }
 }
