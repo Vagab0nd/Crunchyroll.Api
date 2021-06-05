@@ -16,7 +16,12 @@ namespace Crunchyroll.Api
 
         Task<string> GetInfo();
 
-        Task<string> GetListMedia();
+        /// <summary>
+        /// fetches information about media
+        /// </summary>
+        /// <param name="id">series_id or collection_id</param>
+        /// <returns></returns>
+        Task<string> GetListMedia(string id, bool isCollection);
 
         Task<string> GetListSeries();
 

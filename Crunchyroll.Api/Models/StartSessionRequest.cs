@@ -1,12 +1,12 @@
 ﻿namespace Crunchyroll.Api.Models
 {
-    public class StartSessionRequest: RequestBase
+    public class StartSessionRequest : RequestBase
     {
-        public StartSessionRequest(string locale, string deviceId, string deviceType, string accessToken): base(locale)
+        public StartSessionRequest(string locale, string deviceId, string deviceType, string accessToken) : base(locale)
         {
-            this.DeviceId = deviceId;
-            this.DeviceType = deviceType;
-            this.AccessToken = accessToken;
+            DeviceId = deviceId;
+            DeviceType = deviceType;
+            AccessToken = accessToken;
         }
 
         public string AccessToken { get; }

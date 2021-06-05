@@ -38,7 +38,7 @@ namespace Crunchyroll.Api
                 ContractResolver = contractResolver,
                 NullValueHandling = NullValueHandling.Ignore
             };
-            this.jsonMediaTypeFormatter =  new JsonMediaTypeFormatter { SerializerSettings = jsonSerializerSettings };
+            this.jsonMediaTypeFormatter = new JsonMediaTypeFormatter { SerializerSettings = jsonSerializerSettings };
 
             var cultureInfo = new CultureInfo(locale);
             this.locale = cultureInfo.Name.Replace("-", string.Empty);
@@ -56,21 +56,21 @@ namespace Crunchyroll.Api
         private async Task<LoginInfo> Login(string email, string password)
         {
             var loginRequest = new LoginRequest(this.locale, this.sessionId, email, password);
-            var respone = await this.httpClientWrapper.DoAsync(c => 
+            var response = await this.httpClientWrapper.DoAsync(c =>
                 c.PostFormUrlEncoded<LoginInfo>(
-                    "/login.0.json", 
-                    this.ObjToQueryParams(loginRequest)
+                    "/login.0.json",
+                    ObjToQueryParams(loginRequest)
                 )
             );
-            return await this.GetDataFromResponse<LoginInfo>(respone);
+            return await GetDataFromResponse<LoginInfo>(response);
         }
 
         private async Task<SessionInfo> StartSession()
         {
             var startSessionRequest = new StartSessionRequest(this.locale, this.deviceId, deviceType, apiToken);
-            var uri = QueryHelpers.AddQueryString("/start_session.0.json", this.ObjToQueryParams(startSessionRequest));
-            var respone = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
-            return await this.GetDataFromResponse<SessionInfo>(respone);
+            string uri = QueryHelpers.AddQueryString("/start_session.0.json", ObjToQueryParams(startSessionRequest));
+            var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
+            return await GetDataFromResponse<SessionInfo>(response);
         }
 
 
@@ -88,20 +88,23 @@ namespace Crunchyroll.Api
             }
             res = await httpResponse.Content?.ReadAsStringAsync();
 
-            var response = await httpResponse.Content.ReadAsAsync<ResponseBase>();            
+            var response = await httpResponse.Content.ReadAsAsync<ResponseBase>();
             return JsonConvert.DeserializeObject<T>(response.Data.ToString(), this.jsonSerializerSettings);
         }
 
-        IDictionary<string, string> ObjToQueryParams(object obj)
+        private IDictionary<string, string> ObjToQueryParams(object obj)
         {
-            var json = JsonConvert.SerializeObject(obj, this.jsonSerializerSettings);
+            string json = JsonConvert.SerializeObject(obj, this.jsonSerializerSettings);
             var dict = JsonConvert.DeserializeObject<IDictionary<string, string>>(json);
             return dict;
         }
 
-        public Task<string> GetListMedia()
+        public async Task<string> GetListMedia(string id, bool isCollection)
         {
-            throw new NotImplementedException();
+            var startSessionRequest = new GetListMediaRequest(this.locale, this.sessionId, id, isCollection);
+            string uri = QueryHelpers.AddQueryString("/list_media.0.json", ObjToQueryParams(startSessionRequest));
+            var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
+            return await GetDataFromResponse<string>(response);
         }
 
         public Task<string> GetListSeries()

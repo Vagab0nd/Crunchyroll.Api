@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Configuration;
-
+using System.Threading.Tasks;
 
 namespace Crunchyroll.Api.Test
 {
@@ -15,12 +15,13 @@ namespace Crunchyroll.Api.Test
         [TestInitialize]
         public void CrunchyrollApiTestsInit()
         {
-            this.target = new CrunchyrollApi(TestContext.Properties["Login"].ToString(), TestContext.Properties["Pass"].ToString(), "en-US");
+            this.target = new CrunchyrollApi(TestContext.Properties["Login"]?.ToString(), TestContext.Properties["Pass"]?.ToString(), "en-US");
         }
 
         [TestMethod]
-        public void Test1_Success()
+        public async Task Test1_Success()
         {
+            var x = await this.target.GetListMedia("682821", false);
 
         }
     }
