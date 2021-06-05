@@ -6,8 +6,6 @@ namespace Crunchyroll.Api.Models
     public enum MediaType
     {
         Anime = 0,
-        Drama = 1,
-
-        Default = Anime | Drama
+        Drama = 1
     }
 }

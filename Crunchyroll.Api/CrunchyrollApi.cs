@@ -5,6 +5,7 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Threading.Tasks;
@@ -95,49 +96,56 @@ namespace Crunchyroll.Api
         private IDictionary<string, string> ObjToQueryParams(object obj)
         {
             string json = JsonConvert.SerializeObject(obj, this.jsonSerializerSettings);
-            var dict = JsonConvert.DeserializeObject<IDictionary<string, string>>(json);
-            return dict;
+            var dict = JsonConvert.DeserializeObject<IDictionary<string, object>>(json);
+            return dict.ToDictionary(d => d.Key, d => 
+                d.Value.GetType().IsArray 
+                ? JsonConvert.SerializeObject(d.Value, this.jsonSerializerSettings) 
+                : d.Value.ToString()
+            );
         }
 
-        public async Task<string> GetListMedia(string id, bool isCollection)
+        public async Task<object> GetListMedia(string id, bool isCollection)
         {
             var startSessionRequest = new GetListMediaRequest(this.locale, this.sessionId, id, isCollection);
             string uri = QueryHelpers.AddQueryString("/list_media.0.json", ObjToQueryParams(startSessionRequest));
             var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
-            return await GetDataFromResponse<string>(response);
+            return await GetDataFromResponse<object>(response);
         }
 
-        public Task<string> GetListSeries()
+        public Task<object> GetListSeries()
         {
             throw new NotImplementedException();
         }
 
-        public Task<string> GetListLocales()
+        public Task<object> GetListLocales()
         {
             throw new NotImplementedException();
         }
 
-        public Task<string> SetLog()
+        public Task<object> SetLog()
         {
             throw new NotImplementedException();
         }
 
-        public Task<string> AddToQueue(int seriesId)
+        public Task<object> AddToQueue(int seriesId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<string> ListQueue(MediaType mediaType)
+        public async Task<object> ListQueue(MediaType mediaType = MediaType.Anime | MediaType.Drama)
+        {
+            var listQueueRequest = new ListQueueRequest(mediaType, this.locale, this.sessionId);
+            string uri = QueryHelpers.AddQueryString("/queue.0.json", ObjToQueryParams(listQueueRequest));
+            var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
+            return await GetDataFromResponse<object>(response);
+        }
+
+        public Task<object> GetInfo()
         {
             throw new NotImplementedException();
         }
 
-        public Task<string> GetInfo()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<string> SearchSeries(string query, MediaType mediaType = MediaType.Default)
+        public Task<object> SearchSeries(string query, MediaType mediaType = MediaType.Anime | MediaType.Drama)
         {
             throw new NotImplementedException();
         }

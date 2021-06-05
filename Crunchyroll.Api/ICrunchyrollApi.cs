@@ -10,29 +10,29 @@ namespace Crunchyroll.Api
     public interface ICrunchyrollApi : IDisposable
     {
 
-        Task<string> AddToQueue(int seriesId);
+        Task<object> AddToQueue(int seriesId);
 
-        Task<string> ListQueue(MediaType mediaType = MediaType.Default);
+        Task<object> ListQueue(MediaType mediaType = MediaType.Anime | MediaType.Drama);
 
-        Task<string> GetInfo();
+        Task<object> GetInfo();
 
         /// <summary>
         /// fetches information about media
         /// </summary>
         /// <param name="id">series_id or collection_id</param>
         /// <returns></returns>
-        Task<string> GetListMedia(string id, bool isCollection);
+        Task<object> GetListMedia(string id, bool isCollection);
 
-        Task<string> GetListSeries();
+        Task<object> GetListSeries();
 
-        Task<string> GetListLocales();
+        Task<object> GetListLocales();
 
-        Task<string> SetLog();
+        Task<object> SetLog();
 
         /// <summary>
         /// autocomplete
         /// </summary>
         /// <returns></returns>
-        Task<string> SearchSeries(string query, MediaType mediaType = MediaType.Default);
+        Task<object> SearchSeries(string query, MediaType mediaType = MediaType.Anime | MediaType.Drama);
     }
 }

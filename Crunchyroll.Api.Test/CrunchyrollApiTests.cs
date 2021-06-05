@@ -1,3 +1,4 @@
+using Crunchyroll.Api.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Configuration;
@@ -19,10 +20,20 @@ namespace Crunchyroll.Api.Test
         }
 
         [TestMethod]
-        public async Task Test1_Success()
+        public async Task GetListMedia_should_return_series_info()
         {
-            var x = await this.target.GetListMedia("682821", false);
+            var response = (await this.target.GetListMedia("272199", false)).ToString();
 
+            Assert.IsFalse(string.IsNullOrWhiteSpace(response));
+
+        }
+
+        [TestMethod]
+        public async Task ListQueue_should_return_queue()
+        {
+            var response = (await this.target.ListQueue(MediaType.Anime)).ToString();
+
+            Assert.IsFalse(string.IsNullOrWhiteSpace(response));
         }
     }
 }
