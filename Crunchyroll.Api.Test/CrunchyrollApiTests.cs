@@ -22,7 +22,7 @@ namespace Crunchyroll.Api.Test
         [TestMethod]
         public async Task GetListMedia_should_return_series_info()
         {
-            var response = (await this.target.GetListMedia("272199", false)).ToString();
+            var response = (await this.target.GetListMedia(272199, false)).ToString();
 
             Assert.IsFalse(string.IsNullOrWhiteSpace(response));
 

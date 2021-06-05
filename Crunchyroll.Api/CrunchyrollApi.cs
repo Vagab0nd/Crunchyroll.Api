@@ -1,4 +1,5 @@
 ﻿using Crunchyroll.Api.Models;
+using Crunchyroll.Api.Models.Requests;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -97,14 +98,14 @@ namespace Crunchyroll.Api
         {
             string json = JsonConvert.SerializeObject(obj, this.jsonSerializerSettings);
             var dict = JsonConvert.DeserializeObject<IDictionary<string, object>>(json);
-            return dict.ToDictionary(d => d.Key, d => 
-                d.Value.GetType().IsArray 
-                ? JsonConvert.SerializeObject(d.Value, this.jsonSerializerSettings) 
+            return dict.ToDictionary(d => d.Key, d =>
+                d.Value.GetType().IsArray
+                ? JsonConvert.SerializeObject(d.Value, this.jsonSerializerSettings)
                 : d.Value.ToString()
             );
         }
 
-        public async Task<object> GetListMedia(string id, bool isCollection)
+        public async Task<object> GetListMedia(int id, bool isCollection)
         {
             var startSessionRequest = new GetListMediaRequest(this.locale, this.sessionId, id, isCollection);
             string uri = QueryHelpers.AddQueryString("/list_media.0.json", ObjToQueryParams(startSessionRequest));
@@ -140,9 +141,12 @@ namespace Crunchyroll.Api
             return await GetDataFromResponse<object>(response);
         }
 
-        public Task<object> GetInfo()
+        public async Task<object> GetInfo<T>(int id) where T : IInfo
         {
-            throw new NotImplementedException();
+            var listQueueRequest = new GetInfoRequest(this.locale, this.sessionId, id, typeof(T));
+            string uri = QueryHelpers.AddQueryString("/queue.0.json", ObjToQueryParams(listQueueRequest));
+            var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
+            return await GetDataFromResponse<object>(response);
         }
 
         public Task<object> SearchSeries(string query, MediaType mediaType = MediaType.Anime | MediaType.Drama)

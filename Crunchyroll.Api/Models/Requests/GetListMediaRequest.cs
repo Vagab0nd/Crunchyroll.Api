@@ -1,8 +1,8 @@
-﻿namespace Crunchyroll.Api.Models
+﻿namespace Crunchyroll.Api.Models.Requests
 {
     public class GetListMediaRequest : RequestBase
     {
-        public GetListMediaRequest(string locale, string sessionId, string id, bool isCollection) : base(locale, sessionId)
+        public GetListMediaRequest(string locale, string sessionId, int id, bool isCollection) : base(locale, sessionId)
         {
             if (isCollection)
             {
@@ -14,8 +14,8 @@
             }
         }
 
-        public string CollectionId { get; set; }
+        public int CollectionId { get; set; }
 
-        public string SeriesId { get; set; }
+        public int SeriesId { get; set; }
     }
 }

@@ -1,16 +1,16 @@
-﻿namespace Crunchyroll.Api.Models
+﻿namespace Crunchyroll.Api.Models.Requests
 {
     public abstract class RequestBase
     {
         protected RequestBase(string locale)
         {
-            this.Locale = locale;
+            Locale = locale;
         }
 
         protected RequestBase(string locale, string sessionId)
         {
-            this.Locale = locale;
-            this.SessionId = sessionId;
+            Locale = locale;
+            SessionId = sessionId;
         }
 
         public string ConnectivityType { get; } = "ethernet";

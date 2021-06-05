@@ -14,14 +14,14 @@ namespace Crunchyroll.Api
 
         Task<object> ListQueue(MediaType mediaType = MediaType.Anime | MediaType.Drama);
 
-        Task<object> GetInfo();
+        Task<object> GetInfo<T>(int id) where T : IInfo;
 
         /// <summary>
         /// fetches information about media
         /// </summary>
         /// <param name="id">series_id or collection_id</param>
         /// <returns></returns>
-        Task<object> GetListMedia(string id, bool isCollection);
+        Task<object> GetListMedia(int id, bool isCollection);
 
         Task<object> GetListSeries();
 

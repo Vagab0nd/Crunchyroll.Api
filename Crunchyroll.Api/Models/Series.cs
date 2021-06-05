@@ -1,6 +1,6 @@
 ﻿namespace Crunchyroll.Api.Models
 {
-    public class Series
+    public class Series : IInfo
     {
         public string Class { get; set; }
         public string Description { get; set; }

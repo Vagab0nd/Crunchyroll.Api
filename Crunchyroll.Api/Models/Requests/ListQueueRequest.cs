@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Crunchyroll.Api.Models
+namespace Crunchyroll.Api.Models.Requests
 {
     public class ListQueueRequest : RequestBase
     {

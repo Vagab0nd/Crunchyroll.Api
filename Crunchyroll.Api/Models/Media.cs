@@ -4,7 +4,7 @@ using System;
 
 namespace Crunchyroll.Api.Models
 {
-    public class Media
+    public class Media : IInfo
     {
         /// <summary>
         /// Information regarding the medias availability
@@ -131,7 +131,7 @@ namespace Crunchyroll.Api.Models
         /// </summary>
         public string SeriesName { get; set; }
 
-        public Object StreamData { get; set; }
+        public object StreamData { get; set; }
 
         /// <summary>
         /// When the media becomes/became available
