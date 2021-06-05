@@ -6,14 +6,14 @@ namespace Crunchyroll.Api.Models
     {
         public ListQueueRequest(MediaType mediaTypes, string locale, string sessionId) : base(locale, sessionId)
         {
-            this.MediaTypes = mediaTypes;
+            MediaTypes = mediaTypes;
         }
 
         [JsonConverter(typeof(FlagConverter))]
         public MediaType MediaTypes { get; set; }
 
-        public string[] Fields { get; set; } = new[] 
-        { 
+        public string[] Fields { get; set; } = new[]
+        {
             "image.full_url",
             "image.fwide_url",
             "image.fwidestar_url",
@@ -76,7 +76,7 @@ namespace Crunchyroll.Api.Models
             "series.rating",
             "series.series_id",
             "series.url",
-            "series.year" 
+            "series.year"
         };
     }
 }
