@@ -18,6 +18,6 @@ namespace Crunchyroll.Api.Models
 
         public int Playhead { get; set; }
 
-        public Object Series { get; set; }
+        public Series Series { get; set; }
     }
 }

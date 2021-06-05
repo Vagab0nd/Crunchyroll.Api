@@ -119,7 +119,7 @@ namespace Crunchyroll.Api.Models
         /// <summary>
         /// A screenshot of the media
         /// </summary>
-        public Object ScreenshotImage { get; set; }
+        public Image ScreenshotImage { get; set; }
 
         /// <summary>
         /// The ID of the series the media belongs to
