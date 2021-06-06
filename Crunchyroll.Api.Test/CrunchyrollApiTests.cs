@@ -2,6 +2,7 @@ using Crunchyroll.Api.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Configuration;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Crunchyroll.Api.Test
@@ -20,20 +21,38 @@ namespace Crunchyroll.Api.Test
         }
 
         [TestMethod]
-        public async Task GetListMedia_should_return_series_info()
+        public async Task ListMedia_should_return_series_media()
         {
-            var response = (await this.target.GetListMedia(272199, false)).ToString();
+            var response = await this.target.ListMedia(272199);
 
-            Assert.IsFalse(string.IsNullOrWhiteSpace(response));
+            Assert.IsTrue(response.Count() > 0);
 
         }
 
         [TestMethod]
         public async Task ListQueue_should_return_queue()
         {
-            var response = (await this.target.ListQueue(MediaType.Anime)).ToString();
+            var response = await this.target.ListQueue(MediaType.Anime);
 
-            Assert.IsFalse(string.IsNullOrWhiteSpace(response));
+            Assert.IsTrue(response.Count() > 0);
+        }
+
+        [TestMethod]
+        public async Task GetInfo_should_return_series_info()
+        {
+            var response = await this.target.GetInfo<Series>(272199);
+
+            Assert.IsTrue(response != null);
+
+        }
+
+        [TestMethod]
+        public async Task GetInfo_should_return_media_info()
+        {
+            var response = await this.target.GetInfo<Media>(811155);
+
+            Assert.IsTrue(response != null);
+
         }
     }
 }

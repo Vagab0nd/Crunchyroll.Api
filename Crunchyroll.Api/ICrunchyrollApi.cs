@@ -1,5 +1,6 @@
 ﻿using Crunchyroll.Api.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Crunchyroll.Api
@@ -12,20 +13,20 @@ namespace Crunchyroll.Api
 
         Task<object> AddToQueue(int seriesId);
 
-        Task<object> ListQueue(MediaType mediaType = MediaType.Anime | MediaType.Drama);
+        Task<IEnumerable<QueueEntry>> ListQueue(MediaType mediaType = MediaType.Anime | MediaType.Drama);
 
-        Task<object> GetInfo<T>(int id) where T : IInfo;
+        Task<T> GetInfo<T>(int id) where T : IInfo;
 
         /// <summary>
         /// fetches information about media
         /// </summary>
         /// <param name="id">series_id or collection_id</param>
         /// <returns></returns>
-        Task<object> GetListMedia(int id, bool isCollection);
+        Task<IEnumerable<Media>> ListMedia(int id, bool isCollection = false);
 
-        Task<object> GetListSeries();
+        Task<object> ListSeries();
 
-        Task<object> GetListLocales();
+        Task<object> ListLocales();
 
         Task<object> SetLog();
 

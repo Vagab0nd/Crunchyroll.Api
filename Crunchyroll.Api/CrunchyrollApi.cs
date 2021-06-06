@@ -105,20 +105,20 @@ namespace Crunchyroll.Api
             );
         }
 
-        public async Task<object> GetListMedia(int id, bool isCollection)
+        public async Task<IEnumerable<Media>> ListMedia(int id, bool isCollection = false)
         {
-            var startSessionRequest = new GetListMediaRequest(this.locale, this.sessionId, id, isCollection);
-            string uri = QueryHelpers.AddQueryString("/list_media.0.json", ObjToQueryParams(startSessionRequest));
+            var getListMediaRequest = new ListMediaRequest(this.locale, this.sessionId, id, isCollection);
+            string uri = QueryHelpers.AddQueryString("/list_media.0.json", ObjToQueryParams(getListMediaRequest));
             var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
-            return await GetDataFromResponse<object>(response);
+            return await GetDataFromResponse<Media[]>(response);
         }
 
-        public Task<object> GetListSeries()
+        public Task<object> ListSeries()
         {
             throw new NotImplementedException();
         }
 
-        public Task<object> GetListLocales()
+        public Task<object> ListLocales()
         {
             throw new NotImplementedException();
         }
@@ -133,20 +133,26 @@ namespace Crunchyroll.Api
             throw new NotImplementedException();
         }
 
-        public async Task<object> ListQueue(MediaType mediaType = MediaType.Anime | MediaType.Drama)
+        public async Task<IEnumerable<QueueEntry>> ListQueue(MediaType mediaType = MediaType.Anime | MediaType.Drama)
         {
             var listQueueRequest = new ListQueueRequest(mediaType, this.locale, this.sessionId);
             string uri = QueryHelpers.AddQueryString("/queue.0.json", ObjToQueryParams(listQueueRequest));
             var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
-            return await GetDataFromResponse<object>(response);
+            return await GetDataFromResponse<QueueEntry[]>(response);
         }
 
-        public async Task<object> GetInfo<T>(int id) where T : IInfo
+        public async Task<T> GetInfo<T>(int id) where T : IInfo
         {
-            var listQueueRequest = new GetInfoRequest(this.locale, this.sessionId, id, typeof(T));
-            string uri = QueryHelpers.AddQueryString("/queue.0.json", ObjToQueryParams(listQueueRequest));
-            var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
-            return await GetDataFromResponse<object>(response);
+            var getInfoRequest = new GetInfoRequest(this.locale, this.sessionId, id, typeof(T));
+            //string uri = QueryHelpers.AddQueryString("/info.0.json", ObjToQueryParams(getInfoRequest));
+            //var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
+            var response = await this.httpClientWrapper.DoAsync(c =>
+                c.PostFormUrlEncoded<LoginInfo>(
+                    "/info.0.json",
+                    ObjToQueryParams(getInfoRequest)
+                )
+            );
+            return await GetDataFromResponse<T>(response);         
         }
 
         public Task<object> SearchSeries(string query, MediaType mediaType = MediaType.Anime | MediaType.Drama)

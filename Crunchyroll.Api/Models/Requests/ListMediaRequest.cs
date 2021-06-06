@@ -1,8 +1,8 @@
 ﻿namespace Crunchyroll.Api.Models.Requests
 {
-    public class GetListMediaRequest : RequestBase
+    public class ListMediaRequest : RequestBase
     {
-        public GetListMediaRequest(string locale, string sessionId, int id, bool isCollection) : base(locale, sessionId)
+        public ListMediaRequest(string locale, string sessionId, int id, bool isCollection) : base(locale, sessionId)
         {
             if (isCollection)
             {

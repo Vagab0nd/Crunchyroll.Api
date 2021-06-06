@@ -12,7 +12,7 @@
         public string Name { get; set; }
         public Image PortraitImage { get; set; }
         public string PublisherName { get; set; }
-        public string Rating { get; set; }
+        public int Rating { get; set; }
         public int SeriesId { get; set; }
         public string Url { get; set; }
         public string Year { get; set; }

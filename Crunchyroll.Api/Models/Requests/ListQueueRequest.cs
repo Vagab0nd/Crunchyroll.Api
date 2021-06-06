@@ -12,6 +12,7 @@ namespace Crunchyroll.Api.Models.Requests
         [JsonConverter(typeof(FlagConverter))]
         public MediaType MediaTypes { get; set; }
 
+        [JsonConverter(typeof(FieldsConverter))]
         public string[] Fields { get; set; } = new[]
         {
             "image.full_url",
