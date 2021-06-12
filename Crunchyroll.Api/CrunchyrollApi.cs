@@ -118,6 +118,14 @@ namespace Crunchyroll.Api
             throw new NotImplementedException();
         }
 
+        public async Task<object> ListCollections(int seriesId)
+        {
+            var getListMediaRequest = new ListCollectionsRequest(this.locale, this.sessionId, seriesId);
+            string uri = QueryHelpers.AddQueryString("/list_collections.0.json", ObjToQueryParams(getListMediaRequest));
+            var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
+            return await GetDataFromResponse<Collection[]>(response);
+        }
+
         public Task<object> ListLocales()
         {
             throw new NotImplementedException();

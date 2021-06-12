@@ -66,7 +66,7 @@ namespace Crunchyroll.Api.Models.Requests
                 "media.series_name",
                 "media.stream_data",
                 "media.unavailable_time",
-                "media.url",
+                "media.url"
             };
         }
     }

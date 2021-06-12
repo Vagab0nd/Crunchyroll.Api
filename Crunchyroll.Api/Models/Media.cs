@@ -131,7 +131,7 @@ namespace Crunchyroll.Api.Models
         /// </summary>
         public string SeriesName { get; set; }
 
-        public object StreamData { get; set; }
+        public StreamData StreamData { get; set; }
 
         /// <summary>
         /// When the media becomes/became available

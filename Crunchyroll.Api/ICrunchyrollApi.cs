@@ -35,5 +35,7 @@ namespace Crunchyroll.Api
         /// </summary>
         /// <returns></returns>
         Task<object> SearchSeries(string query, MediaType mediaType = MediaType.Anime | MediaType.Drama);
+
+        Task<object> ListCollections(int seriesId);
     }
 }
