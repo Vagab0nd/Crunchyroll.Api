@@ -23,7 +23,7 @@ namespace Crunchyroll.Api.Test
         [TestMethod]
         public async Task ListMedia_should_return_series_media()
         {
-            var response = await this.target.ListMedia(272617);
+            var response = await this.target.ListMedia(25234, true);
 
             Assert.IsTrue(response.Count() > 0);
 
@@ -47,6 +47,15 @@ namespace Crunchyroll.Api.Test
         }
 
         [TestMethod]
+        public async Task GetInfo_should_return_collection_info()
+        {
+            var response = await this.target.GetInfo<Collection>(25234);
+
+            Assert.IsTrue(response != null);
+
+        }
+
+        [TestMethod]
         public async Task GetInfo_should_return_media_info()
         {
             var response = await this.target.GetInfo<Media>(789680);
@@ -58,7 +67,7 @@ namespace Crunchyroll.Api.Test
         [TestMethod]
         public async Task ListCollections_should_return_collections()
         {
-            var response = await this.target.ListCollections(272617);
+            var response = await this.target.ListCollections(272199);
 
             Assert.IsTrue(response != null);
 

@@ -118,7 +118,7 @@ namespace Crunchyroll.Api
             throw new NotImplementedException();
         }
 
-        public async Task<object> ListCollections(int seriesId)
+        public async Task<IEnumerable<Collection>> ListCollections(int seriesId)
         {
             var getListMediaRequest = new ListCollectionsRequest(this.locale, this.sessionId, seriesId);
             string uri = QueryHelpers.AddQueryString("/list_collections.0.json", ObjToQueryParams(getListMediaRequest));
