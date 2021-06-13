@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Crunchyroll.Api.Models.Requests
+﻿namespace Crunchyroll.Api.Models.Requests
 {
     public class ListCollectionsRequest : RequestBase
     {
