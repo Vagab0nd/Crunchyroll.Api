@@ -3,16 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.7</Version>
+    <Version>0.1.8</Version>
     <Authors>Vagab0nd</Authors>
     <Company>Vagab0nd</Company>
-    <Description>Contains c# api wrapper for working with Crunchyroll Api.</Description>
+    <Description>Contains c# api wrapper for Crunchyroll Api.</Description>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/Vagab0nd/Crunchyroll.Api</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Vagab0nd/Crunchyroll.Api</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>xem, api</PackageTags>
+    <PackageTags>crunchyroll, api</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
