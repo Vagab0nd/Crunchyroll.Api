@@ -1,7 +1,5 @@
 using Crunchyroll.Api.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -40,7 +38,7 @@ namespace Crunchyroll.Api.Test
         [TestMethod]
         public async Task GetInfo_should_return_series_info()
         {
-            var response = await this.target.GetInfo<Series>(272617);
+            var response = await this.target.GetInfo<Series>(279979);
 
             Assert.IsTrue(response != null);
 
@@ -58,7 +56,7 @@ namespace Crunchyroll.Api.Test
         [TestMethod]
         public async Task GetInfo_should_return_media_info()
         {
-            var response = await this.target.GetInfo<Media>(789680);
+            var response = await this.target.GetInfo<Media>(797875);
 
             Assert.IsTrue(response != null);
 
@@ -67,7 +65,7 @@ namespace Crunchyroll.Api.Test
         [TestMethod]
         public async Task ListCollections_should_return_collections()
         {
-            var response = await this.target.ListCollections(272199);
+            var response = await this.target.ListCollections(279979);
 
             Assert.IsTrue(response != null);
 

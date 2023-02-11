@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.8</Version>
+    <Version>0.1.10</Version>
     <Authors>Vagab0nd</Authors>
     <Company>Vagab0nd</Company>
     <Description>Contains c# api wrapper for Crunchyroll Api.</Description>

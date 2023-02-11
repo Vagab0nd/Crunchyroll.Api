@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Formatting;
@@ -33,7 +32,7 @@ namespace Crunchyroll.Api
         private readonly JsonSerializerSettings jsonSerializerSettings;
         private readonly JsonMediaTypeFormatter jsonMediaTypeFormatter;
 
-        public CrunchyrollApi(string username, string password, string locale)
+        public CrunchyrollApi(string username, string password, string locale = "en-US")
         {
             this.jsonSerializerSettings = new JsonSerializerSettings
             {
@@ -41,9 +40,7 @@ namespace Crunchyroll.Api
                 NullValueHandling = NullValueHandling.Ignore
             };
             this.jsonMediaTypeFormatter = new JsonMediaTypeFormatter { SerializerSettings = jsonSerializerSettings };
-
-            var cultureInfo = new CultureInfo(locale);
-            this.locale = cultureInfo.Name.Replace("-", string.Empty);
+            this.locale = locale;
             this.httpClientWrapper = new CrunchyrollHttpClientWrapper(baseUri);
             InitApi(username, password).GetAwaiter().GetResult();
         }
@@ -83,12 +80,12 @@ namespace Crunchyroll.Api
 
         private async Task<T> GetDataFromResponse<T>(HttpResponseMessage httpResponse)
         {
-            string req, res;
-            if (httpResponse.RequestMessage.Method == HttpMethod.Post)
-            {
-                req = await httpResponse.RequestMessage?.Content?.ReadAsStringAsync();
-            }
-            res = await httpResponse.Content?.ReadAsStringAsync();
+            //string req, res;
+            //if (httpResponse.RequestMessage.Method == HttpMethod.Post)
+            //{
+            //    req = await httpResponse.RequestMessage?.Content?.ReadAsStringAsync();
+            //}
+            //res = await httpResponse.Content?.ReadAsStringAsync();
 
             var response = await httpResponse.Content.ReadAsAsync<ResponseBase>();
             return JsonConvert.DeserializeObject<T>(response.Data.ToString(), this.jsonSerializerSettings);
