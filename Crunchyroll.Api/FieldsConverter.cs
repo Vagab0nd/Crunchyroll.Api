@@ -3,14 +3,14 @@ using System;
 
 namespace Crunchyroll.Api
 {
-    public class FieldsConverter : JsonConverter
+    internal class FieldsConverter : JsonConverter
     {
-        public override object ReadJson(JsonReader reader, Type objectType, Object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             throw new NotImplementedException();
         }
 
-        public override void WriteJson(JsonWriter writer, Object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             var fields = value as string[];
             writer.WriteRawValue($"\"{string.Join(",", fields)}\"");

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Crunchyroll.Api
 {
-    public class FlagConverter : JsonConverter
+    internal class FlagConverter : JsonConverter
     {
         public override object ReadJson(JsonReader reader, Type objectType, Object existingValue, JsonSerializer serializer)
         {

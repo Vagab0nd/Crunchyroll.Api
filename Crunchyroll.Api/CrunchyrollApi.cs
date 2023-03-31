@@ -80,13 +80,6 @@ namespace Crunchyroll.Api
 
         private async Task<T> GetDataFromResponse<T>(HttpResponseMessage httpResponse)
         {
-            //string req, res;
-            //if (httpResponse.RequestMessage.Method == HttpMethod.Post)
-            //{
-            //    req = await httpResponse.RequestMessage?.Content?.ReadAsStringAsync();
-            //}
-            //res = await httpResponse.Content?.ReadAsStringAsync();
-
             var response = await httpResponse.Content.ReadAsAsync<ResponseBase>();
             return JsonConvert.DeserializeObject<T>(response.Data.ToString(), this.jsonSerializerSettings);
         }
@@ -149,8 +142,6 @@ namespace Crunchyroll.Api
         public async Task<T> GetInfo<T>(int id) where T : IInfo
         {
             var getInfoRequest = new GetInfoRequest(this.locale, this.sessionId, id, typeof(T));
-            //string uri = QueryHelpers.AddQueryString("/info.0.json", ObjToQueryParams(getInfoRequest));
-            //var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
             var response = await this.httpClientWrapper.DoAsync(c =>
                 c.PostFormUrlEncoded<LoginInfo>(
                     "/info.0.json",
