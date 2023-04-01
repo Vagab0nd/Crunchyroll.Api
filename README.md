@@ -7,4 +7,4 @@ Coverage as of right now is very limited and allows to fetch media and media lis
 
 # ⚖ License
 
-This project is licensed under the GNU Lesser General Public License v3.0 (LGPL-3.0) - see the LICENSE file for more details.
+This project is licensed under the GNU General Public License v3.0 (GPL-3.0) - see the [LICENSE](LICENSE) file for more details.
