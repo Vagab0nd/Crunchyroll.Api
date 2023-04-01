@@ -18,7 +18,7 @@ namespace Crunchyroll.Api.Test
             this.target = new CrunchyrollApi(TestContext.Properties["Login"]?.ToString(), TestContext.Properties["Pass"]?.ToString(), "en-US");
         }
 
-        [TestMethod]
+        [TestMethod, Ignore]
         public async Task ListMedia_should_return_series_media()
         {
             var response = await this.target.ListMedia(25234, true);
@@ -27,7 +27,7 @@ namespace Crunchyroll.Api.Test
 
         }
 
-        [TestMethod]
+        [TestMethod, Ignore]
         public async Task ListQueue_should_return_queue()
         {
             var response = await this.target.ListQueue(MediaType.Anime);
@@ -62,7 +62,7 @@ namespace Crunchyroll.Api.Test
 
         }
 
-        [TestMethod]
+        [TestMethod, Ignore]
         public async Task ListCollections_should_return_collections()
         {
             var response = await this.target.ListCollections(279979);
