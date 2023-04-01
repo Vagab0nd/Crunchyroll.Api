@@ -1,4 +1,6 @@
-﻿using Crunchyroll.Api.Models;
+﻿using Crunchyroll.Api.Extensions;
+using Crunchyroll.Api.Infrastructure;
+using Crunchyroll.Api.Models;
 using Crunchyroll.Api.Models.Requests;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
@@ -81,6 +83,7 @@ namespace Crunchyroll.Api
         private async Task<T> GetDataFromResponse<T>(HttpResponseMessage httpResponse)
         {
             var response = await httpResponse.Content.ReadAsAsync<ResponseBase>();
+            var responseS = await httpResponse.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(response.Data.ToString(), this.jsonSerializerSettings);
         }
 
@@ -118,7 +121,7 @@ namespace Crunchyroll.Api
 
         public Task<object> ListLocales()
         {
-            throw new NotImplementedException();
+             throw new NotImplementedException();
         }
 
         public Task<object> SetLog()

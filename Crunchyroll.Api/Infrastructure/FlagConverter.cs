@@ -1,9 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Linq;
 
-namespace Crunchyroll.Api
+namespace Crunchyroll.Api.Infrastructure
 {
-    internal class FieldsConverter : JsonConverter
+    internal class FlagConverter : JsonConverter
     {
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
@@ -12,8 +13,13 @@ namespace Crunchyroll.Api
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var fields = value as string[];
-            writer.WriteRawValue($"\"{string.Join(",", fields)}\"");
+            var t = value.GetType();
+            var flags = value.ToString()
+                .Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(f => $"\"{f}\"")
+                .Select(f => f.ToLowerInvariant());
+
+            writer.WriteRawValue(string.Join("|", flags));
         }
 
         public override bool CanConvert(Type objectType)

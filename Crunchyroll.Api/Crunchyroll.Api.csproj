@@ -1,9 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.11</Version>
+    <Version>0.1.12</Version>
     <Authors>Vagab0nd</Authors>
     <Company>Vagab0nd</Company>
     <Description>Contains c# api wrapper for Crunchyroll Api.</Description>
@@ -14,13 +13,11 @@
     <RepositoryType>Git</RepositoryType>
     <PackageTags>crunchyroll, api</PackageTags>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
-
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="..\LICENSE">

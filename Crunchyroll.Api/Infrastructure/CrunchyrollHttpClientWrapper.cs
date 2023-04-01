@@ -4,7 +4,7 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Crunchyroll.Api
+namespace Crunchyroll.Api.Infrastructure
 {
     internal class CrunchyrollHttpClientWrapper : IDisposable
     {
@@ -14,9 +14,9 @@ namespace Crunchyroll.Api
 
         public CrunchyrollHttpClientWrapper(string baseUri)
         {
-            this.client = new HttpClient { BaseAddress = new Uri(baseUri.TrimEnd('/', '\\')) };
-            this.client.DefaultRequestHeaders.Accept.Clear();
-            this.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client = new HttpClient { BaseAddress = new Uri(baseUri.TrimEnd('/', '\\')) };
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public async Task<HttpResponseMessage> DoAsync(Func<HttpClient, Task<HttpResponseMessage>> requestFunc)
@@ -24,7 +24,7 @@ namespace Crunchyroll.Api
             await semaphore.WaitAsync();
             try
             {
-                return await requestFunc(this.client);
+                return await requestFunc(client);
             }
             finally
             {
@@ -34,7 +34,7 @@ namespace Crunchyroll.Api
 
         public void Dispose()
         {
-            this.client.Dispose();
+            client.Dispose();
         }
     }
 }

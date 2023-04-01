@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Crunchyroll.Api.Infrastructure;
+using Newtonsoft.Json;
 
 namespace Crunchyroll.Api.Models.Requests
 {

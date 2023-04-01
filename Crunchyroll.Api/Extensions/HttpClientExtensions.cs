@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Crunchyroll.Api
+namespace Crunchyroll.Api.Extensions
 {
     internal static class HttpClientExtensions
     {
@@ -10,7 +10,7 @@ namespace Crunchyroll.Api
             this HttpClient httpClient, string requestUri, IDictionary<string, string> postData)
         {
             var content = new FormUrlEncodedContent(postData);
-                content.Headers.Clear();
+            content.Headers.Clear();
             content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
 
             var response = await httpClient.PostAsync(requestUri, content);
