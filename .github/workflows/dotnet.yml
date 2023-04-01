@@ -25,5 +25,5 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal -- TestRunParameters.Parameter\(name=\"Login\", value=\"${{ secrets.CR_LOGIN }}\") -- TestRunParameters.Parameter\(name=\"Pass\", value=\"${{ secrets.CR_PASS }}\")
+      run: dotnet test --no-build --verbosity normal -- TestRunParameters.Parameter\(name=\"Login\", value=\"${{ secrets.CR_LOGIN }}\"\) -- TestRunParameters.Parameter\(name=\"Pass\", value=\"${{ secrets.CR_PASS }}\"\)
 
