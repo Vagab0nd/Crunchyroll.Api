@@ -24,7 +24,7 @@ namespace Crunchyroll.Api
         private readonly string deviceId = Guid.NewGuid().ToString();
         private readonly string locale;
 
-        private string sessionId;
+        private static string sessionId;
 
         private readonly CrunchyrollHttpClientWrapper httpClientWrapper;
         private readonly DefaultContractResolver contractResolver = new DefaultContractResolver
@@ -49,14 +49,18 @@ namespace Crunchyroll.Api
 
         private async Task InitApi(string username, string password)
         {
-            var session = await StartSession();
-            this.sessionId = session.SessionId;
+            if(string.IsNullOrWhiteSpace(sessionId))
+            {
+                var session = await StartSession();
+                sessionId = session.SessionId;
+            }
+
             var login = await Login(username, password);
         }
 
         private async Task<LoginInfo> Login(string email, string password)
         {
-            var loginRequest = new LoginRequest(this.locale, this.sessionId, email, password);
+            var loginRequest = new LoginRequest(this.locale, sessionId, email, password);
             var response = await this.httpClientWrapper.DoAsync(c =>
                 c.PostFormUrlEncoded<LoginInfo>(
                     "/login.0.json",
@@ -100,7 +104,7 @@ namespace Crunchyroll.Api
 
         public async Task<IEnumerable<Media>> ListMedia(int id, bool isCollection = false)
         {
-            var getListMediaRequest = new ListMediaRequest(this.locale, this.sessionId, id, isCollection);
+            var getListMediaRequest = new ListMediaRequest(this.locale, sessionId, id, isCollection);
             string uri = QueryHelpers.AddQueryString("/list_media.0.json", ObjToQueryParams(getListMediaRequest));
             var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
             return await GetDataFromResponse<Media[]>(response);
@@ -113,7 +117,7 @@ namespace Crunchyroll.Api
 
         public async Task<IEnumerable<Collection>> ListCollections(int seriesId)
         {
-            var getListMediaRequest = new ListCollectionsRequest(this.locale, this.sessionId, seriesId);
+            var getListMediaRequest = new ListCollectionsRequest(this.locale, sessionId, seriesId);
             string uri = QueryHelpers.AddQueryString("/list_collections.0.json", ObjToQueryParams(getListMediaRequest));
             var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
             return await GetDataFromResponse<Collection[]>(response);
@@ -136,7 +140,7 @@ namespace Crunchyroll.Api
 
         public async Task<IEnumerable<QueueEntry>> ListQueue(MediaType mediaType = MediaType.Anime | MediaType.Drama)
         {
-            var listQueueRequest = new ListQueueRequest(mediaType, this.locale, this.sessionId);
+            var listQueueRequest = new ListQueueRequest(mediaType, this.locale, sessionId);
             string uri = QueryHelpers.AddQueryString("/queue.0.json", ObjToQueryParams(listQueueRequest));
             var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
             return await GetDataFromResponse<QueueEntry[]>(response);
@@ -144,7 +148,7 @@ namespace Crunchyroll.Api
 
         public async Task<T> GetInfo<T>(int id) where T : IInfo
         {
-            var getInfoRequest = new GetInfoRequest(this.locale, this.sessionId, id, typeof(T));
+            var getInfoRequest = new GetInfoRequest(this.locale, sessionId, id, typeof(T));
             var response = await this.httpClientWrapper.DoAsync(c =>
                 c.PostFormUrlEncoded<LoginInfo>(
                     "/info.0.json",
