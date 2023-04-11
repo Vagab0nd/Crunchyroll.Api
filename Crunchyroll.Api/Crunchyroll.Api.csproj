@@ -2,16 +2,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.12</Version>
+    <Version>0.1.13</Version>
     <Authors>Vagab0nd</Authors>
     <Company>Vagab0nd</Company>
-    <Description>Contains c# api wrapper for Crunchyroll Api.</Description>
+    <Description>.Net library that provides wrapper for Crunchyroll API.</Description>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/Vagab0nd/Crunchyroll.Api</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Vagab0nd/Crunchyroll.Api</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>crunchyroll, api</PackageTags>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<PackageReleaseNotes>Add README</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
@@ -23,5 +25,9 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+	<None Include="README.md">
+	 <Pack>True</Pack>
+	 <PackagePath>\</PackagePath>
+	</None>
   </ItemGroup>
 </Project>
