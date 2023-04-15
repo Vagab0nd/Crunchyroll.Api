@@ -8,7 +8,8 @@ on:
     branches: [ "main", "release/*" ]
   pull_request:
     branches: [ "main", "release/*" ]
-
+  schedule:
+    - cron: '0 5 * * 0'
 jobs:
   build:
 
