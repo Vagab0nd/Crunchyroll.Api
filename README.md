@@ -1,5 +1,5 @@
 # Crunchyroll.Api
-.Net library that provides wrapper for Crunchyroll API. You need a crunchyroll premium account to fullt utilize API.
+.Net library that provides wrapper for Crunchyroll API. You need a crunchyroll premium account to fully utilize API.
 
 [![Build](https://github.com/Vagab0nd/Crunchyroll.Api/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/Vagab0nd/Crunchyroll.Api/actions/workflows/build.yml)
 
