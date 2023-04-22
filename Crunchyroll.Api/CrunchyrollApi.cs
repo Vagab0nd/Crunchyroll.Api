@@ -16,12 +16,7 @@ namespace Crunchyroll.Api
 {
     public class CrunchyrollApi : ICrunchyrollApi
     {
-        private const string baseUri = "https://api.crunchyroll.com/";
-        private const string apiVersion = "1.3.1.0";
-        private const string apiToken = "LNDJgOit5yaRIWN";
-        private const string deviceType = "com.crunchyroll.windows.desktop";
-
-        private readonly string deviceId = Guid.NewGuid().ToString();
+        private const string baseUri = "https://beta-api.crunchyroll.com";
         private readonly string locale;
 
         private static string sessionId;
@@ -34,7 +29,7 @@ namespace Crunchyroll.Api
         private readonly JsonSerializerSettings jsonSerializerSettings;
         private readonly JsonMediaTypeFormatter jsonMediaTypeFormatter;
 
-        public CrunchyrollApi(string username, string password, string locale = "en-US")
+        public CrunchyrollApi()
         {
             this.jsonSerializerSettings = new JsonSerializerSettings
             {
@@ -42,42 +37,25 @@ namespace Crunchyroll.Api
                 NullValueHandling = NullValueHandling.Ignore
             };
             this.jsonMediaTypeFormatter = new JsonMediaTypeFormatter { SerializerSettings = jsonSerializerSettings };
-            this.locale = locale;
             this.httpClientWrapper = new CrunchyrollHttpClientWrapper(baseUri);
-            InitApi(username, password).GetAwaiter().GetResult();
         }
 
-        private async Task InitApi(string username, string password)
+        public async Task<LoginInfo> LoginWithPassword(string username, string password)
         {
-            if(string.IsNullOrWhiteSpace(sessionId))
-            {
-                var session = await StartSession();
-                sessionId = session.SessionId;
-            }
-
-            var login = await Login(username, password);
-        }
-
-        private async Task<LoginInfo> Login(string email, string password)
-        {
-            var loginRequest = new LoginRequest(this.locale, sessionId, email, password);
+            var loginRequest = new LoginRequest(username, password, GrantType.Password);
             var response = await this.httpClientWrapper.DoAsync(c =>
                 c.PostFormUrlEncoded<LoginInfo>(
-                    "/login.0.json",
+                    "/auth/v1/token",
                     ObjToQueryParams(loginRequest)
                 )
             );
+            //debug code below - run only in debug config
+            #if DEBUG
+            var requestString = await response.RequestMessage.Content.ReadAsStringAsync();
+            var responseString = await response.Content.ReadAsStringAsync();
+            #endif
             return await GetDataFromResponse<LoginInfo>(response);
         }
-
-        private async Task<SessionInfo> StartSession()
-        {
-            var startSessionRequest = new StartSessionRequest(this.locale, this.deviceId, deviceType, apiToken);
-            string uri = QueryHelpers.AddQueryString("/start_session.0.json", ObjToQueryParams(startSessionRequest));
-            var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
-            return await GetDataFromResponse<SessionInfo>(response);
-        }
-
 
         public void Dispose()
         {
@@ -86,9 +64,8 @@ namespace Crunchyroll.Api
 
         private async Task<T> GetDataFromResponse<T>(HttpResponseMessage httpResponse)
         {
-            var response = await httpResponse.Content.ReadAsAsync<ResponseBase>();
-            var responseS = await httpResponse.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(response.Data.ToString(), this.jsonSerializerSettings);
+            var response = await httpResponse.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(response, this.jsonSerializerSettings);
         }
 
         private IDictionary<string, string> ObjToQueryParams(object obj)

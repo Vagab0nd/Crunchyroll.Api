@@ -13,9 +13,11 @@ namespace Crunchyroll.Api.Test
         public TestContext TestContext { get; set; }
 
         [TestInitialize]
-        public void CrunchyrollApiTestsInit()
+        public async Task _Init()
         {
-            this.target = new CrunchyrollApi(TestContext.Properties["Login"]?.ToString(), TestContext.Properties["Pass"]?.ToString(), "en-US");
+            this.target = new CrunchyrollApi();
+            var response = await this.target.LoginWithPassword(TestContext.Properties["Login"]?.ToString(), TestContext.Properties["Pass"]?.ToString());
+            Assert.IsNotNull(response);
         }
 
         [TestMethod]

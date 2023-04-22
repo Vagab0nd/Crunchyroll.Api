@@ -1,15 +1,24 @@
-﻿namespace Crunchyroll.Api.Models.Requests
+﻿using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
+
+namespace Crunchyroll.Api.Models.Requests
 {
-    public class LoginRequest : RequestBase
+    internal record LoginRequest
     {
-        public LoginRequest(string locale, string sessionId, string email, string password) : base(locale, sessionId)
+        public LoginRequest(string username, string password, GrantType grantType)
         {
-            Account = email;
-            Password = password;
+            this.Username = username;
+            this.Password = password;
+            GrantType = grantType;
         }
 
-        public string Account { get; set; }
+        public string Username { get; }
 
-        public string Password { get; set; }
+        public string Password { get; }
+
+        [JsonConverter(typeof(StringEnumConverter), true)]
+        public GrantType GrantType { get; }
+
+        public string Scope { get; } = "OfflineAccess";
     }
 }

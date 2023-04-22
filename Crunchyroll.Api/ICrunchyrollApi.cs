@@ -10,6 +10,7 @@ namespace Crunchyroll.Api
     /// </summary>
     public interface ICrunchyrollApi : IDisposable
     {
+        Task<LoginInfo> LoginWithPassword(string username, string password);
 
         Task<object> AddToQueue(int seriesId);
 
