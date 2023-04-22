@@ -8,7 +8,7 @@ namespace Crunchyroll.Api.Infrastructure
 {
     internal class CrunchyrollHttpClientWrapper : IDisposable
     {
-        private static readonly SemaphoreSlim semaphore = new SemaphoreSlim(5, 5);
+        private static readonly SemaphoreSlim semaphore = new(5, 5);
 
         private readonly HttpClient client;
 
