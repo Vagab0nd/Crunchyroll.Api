@@ -1,11 +1,20 @@
 ﻿namespace Crunchyroll.Api.Models
 {
-    public class LoginInfo
+    public record LoginInfo
     {
-        public string Auth { get; set; }
+        public string AccessToken { get; init; }
 
-        public string Expires { get; set; }
+        public string AccountId { get; init; }
 
-        public User User { get; set; }
+        public string Country { get; init; }
+
+        public int ExpiresIn { get; init; }
+
+        public string RefreshToken { get; init; }
+
+        public string Scope { get; init; }
+
+        //TODO: create enum?
+        public string TokenType { get; init; }
     }
 }
