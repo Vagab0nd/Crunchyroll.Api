@@ -10,7 +10,20 @@ namespace Crunchyroll.Api
     /// </summary>
     public interface ICrunchyrollApi : IDisposable
     {
+        /// <summary>
+        /// Login to crunchyroll Api using username (email) and password.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         Task<LoginInfo> LoginWithPassword(string username, string password);
+
+        /// <summary>
+        /// Login to crunchyroll Api using refresh token. Refresh token can be obtained by copying it from the cookie named "etp_rt" in the browser on https://beta-api.crunchyroll.com/. Need to be logged into crunchyroll account.
+        /// </summary>
+        /// <param name="refreshToken"></param>
+        /// <returns></returns>
+        Task<LoginInfo> LoginWithRefreshToken(string refreshToken);
 
         Task<object> AddToQueue(int seriesId);
 

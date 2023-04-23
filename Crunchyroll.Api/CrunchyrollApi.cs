@@ -42,24 +42,30 @@ namespace Crunchyroll.Api
 
         public async Task<LoginInfo> LoginWithPassword(string username, string password)
         {
-            var loginRequest = new LoginRequest(username, password, GrantType.Password);
+            var loginRequest = new LoginRequest(username, password);
             var response = await this.httpClientWrapper.DoAsync(c =>
                 c.PostFormUrlEncoded<LoginInfo>(
                     "/auth/v1/token",
                     ObjToQueryParams(loginRequest)
                 )
             );
-            //debug code below - run only in debug config
-            #if DEBUG
-            var requestString = await response.RequestMessage.Content.ReadAsStringAsync();
-            var responseString = await response.Content.ReadAsStringAsync();
-            #endif
+            return await GetDataFromResponse<LoginInfo>(response);
+        }
+
+        public async Task<LoginInfo> LoginWithRefreshToken(string refreshToken)
+        {
+            var loginRequest = new LoginRequest(refreshToken);
+            var response = await this.httpClientWrapper.DoAsync(c =>
+                c.PostFormUrlEncoded<LoginInfo>(
+                    "/auth/v1/token",
+                    ObjToQueryParams(loginRequest)
+                )
+            );
             return await GetDataFromResponse<LoginInfo>(response);
         }
 
         public void Dispose()
         {
-            //TODO: logout
         }
 
         private async Task<T> GetDataFromResponse<T>(HttpResponseMessage httpResponse)
