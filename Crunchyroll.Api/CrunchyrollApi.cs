@@ -18,8 +18,7 @@ namespace Crunchyroll.Api
     {
         private const string baseUri = "https://beta-api.crunchyroll.com";
         private readonly string locale;
-
-        private static string sessionId;
+        private LoginInfo loginInfo;
 
         private readonly CrunchyrollHttpClientWrapper httpClientWrapper;
         private readonly DefaultContractResolver contractResolver = new DefaultContractResolver
@@ -42,26 +41,12 @@ namespace Crunchyroll.Api
 
         public async Task<LoginInfo> LoginWithPassword(string username, string password)
         {
-            var loginRequest = new LoginRequest(username, password);
-            var response = await this.httpClientWrapper.DoAsync(c =>
-                c.PostFormUrlEncoded<LoginInfo>(
-                    "/auth/v1/token",
-                    ObjToQueryParams(loginRequest)
-                )
-            );
-            return await GetDataFromResponse<LoginInfo>(response);
+            return await Login(new LoginRequest(username, password));
         }
 
         public async Task<LoginInfo> LoginWithRefreshToken(string refreshToken)
         {
-            var loginRequest = new LoginRequest(refreshToken);
-            var response = await this.httpClientWrapper.DoAsync(c =>
-                c.PostFormUrlEncoded<LoginInfo>(
-                    "/auth/v1/token",
-                    ObjToQueryParams(loginRequest)
-                )
-            );
-            return await GetDataFromResponse<LoginInfo>(response);
+            return await Login(new LoginRequest(refreshToken));
         }
 
         public void Dispose()
@@ -144,6 +129,18 @@ namespace Crunchyroll.Api
         public Task<object> SearchSeries(string query, MediaType mediaType = MediaType.Anime | MediaType.Drama)
         {
             throw new NotImplementedException();
+        }
+
+        private async Task<LoginInfo> Login(LoginRequest loginRequest)
+        {
+            var response = await this.httpClientWrapper.DoAsync(c =>
+                c.PostFormUrlEncoded<LoginInfo>(
+                    "/auth/v1/token",
+                    ObjToQueryParams(loginRequest)
+                )
+            );
+            this.loginInfo = await GetDataFromResponse<LoginInfo>(response);
+            return this.loginInfo;
         }
     }
 }
