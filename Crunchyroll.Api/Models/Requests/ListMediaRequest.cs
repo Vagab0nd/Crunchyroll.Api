@@ -6,11 +6,11 @@
         {
             if (isCollection)
             {
-                CollectionId = id;
+                this.CollectionId = id;
             }
             else
             {
-                SeriesId = id;
+                this.SeriesId = id;
             }
         }
 

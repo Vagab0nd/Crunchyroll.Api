@@ -10,20 +10,20 @@ namespace Crunchyroll.Api.Models.Requests
         {
             if (infoType == typeof(Media))
             {
-                MediaId = id;
-                Fields = this.GetMediaFields();
+                this.MediaId = id;
+                this.Fields = this.GetMediaFields();
                 return;
             }
 
             if (infoType == typeof(Collection))
             {
-                CollectionId = id;
+                this.CollectionId = id;
                 return;
             }
 
             if (infoType == typeof(Series))
             {
-                SeriesId = id;
+                this.SeriesId = id;
                 return;
             }
         }

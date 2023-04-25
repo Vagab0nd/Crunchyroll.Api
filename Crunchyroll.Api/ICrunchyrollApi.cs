@@ -1,4 +1,5 @@
 ﻿using Crunchyroll.Api.Models;
+using Crunchyroll.Api.Models.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

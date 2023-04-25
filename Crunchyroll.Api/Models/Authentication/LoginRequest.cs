@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json.Converters;
 using Newtonsoft.Json;
 
-namespace Crunchyroll.Api.Models.Requests
+namespace Crunchyroll.Api.Models.Authentication
 {
     internal record LoginRequest
     {

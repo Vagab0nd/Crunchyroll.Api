@@ -1,6 +1,7 @@
 ﻿using Crunchyroll.Api.Extensions;
 using Crunchyroll.Api.Infrastructure;
 using Crunchyroll.Api.Models;
+using Crunchyroll.Api.Models.Authentication;
 using Crunchyroll.Api.Models.Requests;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
@@ -41,12 +42,12 @@ namespace Crunchyroll.Api
 
         public async Task<LoginInfo> LoginWithPassword(string username, string password)
         {
-            return await Login(new LoginRequest(username, password));
+            return await this.Login(new LoginRequest(username, password));
         }
 
         public async Task<LoginInfo> LoginWithRefreshToken(string refreshToken)
         {
-            return await Login(new LoginRequest(refreshToken));
+            return await this.Login(new LoginRequest(refreshToken));
         }
 
         public void Dispose()
@@ -72,10 +73,11 @@ namespace Crunchyroll.Api
 
         public async Task<IEnumerable<Media>> ListMedia(int id, bool isCollection = false)
         {
-            var getListMediaRequest = new ListMediaRequest(this.locale, sessionId, id, isCollection);
-            string uri = QueryHelpers.AddQueryString("/list_media.0.json", ObjToQueryParams(getListMediaRequest));
-            var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
-            return await GetDataFromResponse<Media[]>(response);
+            //var getListMediaRequest = new ListMediaRequest(this.locale, sessionId, id, isCollection);
+            //string uri = QueryHelpers.AddQueryString("/list_media.0.json", ObjToQueryParams(getListMediaRequest));
+            //var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
+            //return await GetDataFromResponse<Media[]>(response);
+            throw new NotImplementedException();
         }
 
         public Task<object> ListSeries()
@@ -85,10 +87,11 @@ namespace Crunchyroll.Api
 
         public async Task<IEnumerable<Collection>> ListCollections(int seriesId)
         {
-            var getListMediaRequest = new ListCollectionsRequest(this.locale, sessionId, seriesId);
-            string uri = QueryHelpers.AddQueryString("/list_collections.0.json", ObjToQueryParams(getListMediaRequest));
-            var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
-            return await GetDataFromResponse<Collection[]>(response);
+            //var getListMediaRequest = new ListCollectionsRequest(this.locale, sessionId, seriesId);
+            //string uri = QueryHelpers.AddQueryString("/list_collections.0.json", ObjToQueryParams(getListMediaRequest));
+            //var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
+            //return await GetDataFromResponse<Collection[]>(response);
+            throw new NotImplementedException();
         }
 
         public Task<object> ListLocales()
@@ -108,22 +111,24 @@ namespace Crunchyroll.Api
 
         public async Task<IEnumerable<QueueEntry>> ListQueue(MediaType mediaType = MediaType.Anime | MediaType.Drama)
         {
-            var listQueueRequest = new ListQueueRequest(mediaType, this.locale, sessionId);
-            string uri = QueryHelpers.AddQueryString("/queue.0.json", ObjToQueryParams(listQueueRequest));
-            var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
-            return await GetDataFromResponse<QueueEntry[]>(response);
+            //var listQueueRequest = new ListQueueRequest(mediaType, this.locale, sessionId);
+            //string uri = QueryHelpers.AddQueryString("/queue.0.json", ObjToQueryParams(listQueueRequest));
+            //var response = await this.httpClientWrapper.DoAsync(c => c.GetAsync(uri));
+            //return await GetDataFromResponse<QueueEntry[]>(response);
+            throw new NotImplementedException();
         }
 
         public async Task<T> GetInfo<T>(int id) where T : IInfo
         {
-            var getInfoRequest = new GetInfoRequest(this.locale, sessionId, id, typeof(T));
-            var response = await this.httpClientWrapper.DoAsync(c =>
-                c.PostFormUrlEncoded<LoginInfo>(
-                    "/info.0.json",
-                    ObjToQueryParams(getInfoRequest)
-                )
-            );
-            return await GetDataFromResponse<T>(response);         
+            //var getInfoRequest = new GetInfoRequest(this.locale, sessionId, id, typeof(T));
+            //var response = await this.httpClientWrapper.DoAsync(c =>
+            //    c.PostFormUrlEncoded<LoginInfo>(
+            //        "/info.0.json",
+            //        ObjToQueryParams(getInfoRequest)
+            //    )
+            //);
+            //return await GetDataFromResponse<T>(response);
+            throw new NotImplementedException();
         }
 
         public Task<object> SearchSeries(string query, MediaType mediaType = MediaType.Anime | MediaType.Drama)
@@ -136,10 +141,11 @@ namespace Crunchyroll.Api
             var response = await this.httpClientWrapper.DoAsync(c =>
                 c.PostFormUrlEncoded<LoginInfo>(
                     "/auth/v1/token",
-                    ObjToQueryParams(loginRequest)
+                    this.ObjToQueryParams(loginRequest)
                 )
             );
-            this.loginInfo = await GetDataFromResponse<LoginInfo>(response);
+            var loginString = await response.Content.ReadAsStringAsync();
+            this.loginInfo = await this.GetDataFromResponse<LoginInfo>(response);
             return this.loginInfo;
         }
     }

@@ -4,9 +4,9 @@
     {
         public StartSessionRequest(string locale, string deviceId, string deviceType, string accessToken) : base(locale)
         {
-            DeviceId = deviceId;
-            DeviceType = deviceType;
-            AccessToken = accessToken;
+            this.DeviceId = deviceId;
+            this.DeviceType = deviceType;
+            this.AccessToken = accessToken;
         }
 
         public string AccessToken { get; }

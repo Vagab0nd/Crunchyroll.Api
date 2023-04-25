@@ -14,10 +14,9 @@ namespace Crunchyroll.Api.Infrastructure
 
         public CrunchyrollHttpClientWrapper(string baseUri)
         {
-            client = new HttpClient { BaseAddress = new Uri(baseUri.TrimEnd('/', '\\')) };
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("charset=utf-8"));
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "aHJobzlxM2F3dnNrMjJ1LXRzNWE6cHROOURteXRBU2Z6QjZvbXVsSzh6cUxzYTczVE1TY1k=");
+            this.client = new HttpClient { BaseAddress = new Uri(baseUri.TrimEnd('/', '\\')) };
+            this.client.DefaultRequestHeaders.Accept.Clear();
+            this.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "aHJobzlxM2F3dnNrMjJ1LXRzNWE6cHROOURteXRBU2Z6QjZvbXVsSzh6cUxzYTczVE1TY1k=");
         }
 
         public async Task<HttpResponseMessage> DoAsync(Func<HttpClient, Task<HttpResponseMessage>> requestFunc)
@@ -25,7 +24,7 @@ namespace Crunchyroll.Api.Infrastructure
             await semaphore.WaitAsync();
             try
             {
-                return await requestFunc(client);
+                return await requestFunc(this.client);
             }
             finally
             {
@@ -35,7 +34,7 @@ namespace Crunchyroll.Api.Infrastructure
 
         public void Dispose()
         {
-            client.Dispose();
+            this.client.Dispose();
         }
     }
 }

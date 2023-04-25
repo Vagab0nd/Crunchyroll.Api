@@ -4,13 +4,13 @@
     {
         protected RequestBase(string locale)
         {
-            Locale = locale;
+            this.Locale = locale;
         }
 
         protected RequestBase(string locale, string sessionId)
         {
-            Locale = locale;
-            SessionId = sessionId;
+            this.Locale = locale;
+            this.SessionId = sessionId;
         }
 
         public string ConnectivityType { get; } = "ethernet";

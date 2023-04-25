@@ -7,7 +7,7 @@ namespace Crunchyroll.Api.Models.Requests
     {
         public ListQueueRequest(MediaType mediaTypes, string locale, string sessionId) : base(locale, sessionId)
         {
-            MediaTypes = mediaTypes;
+            this.MediaTypes = mediaTypes;
         }
 
         [JsonConverter(typeof(FlagConverter))]
