@@ -2,8 +2,7 @@
 using Crunchyroll.Api.Infrastructure;
 using Crunchyroll.Api.Models;
 using Crunchyroll.Api.Models.Authentication;
-using Crunchyroll.Api.Models.Requests;
-using Microsoft.AspNetCore.WebUtilities;
+using Crunchyroll.Api.Models.Watchlist;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -144,7 +143,9 @@ namespace Crunchyroll.Api
                     this.ObjToQueryParams(loginRequest)
                 )
             );
+#if DEBUG
             var loginString = await response.Content.ReadAsStringAsync();
+#endif
             this.loginInfo = await this.GetDataFromResponse<LoginInfo>(response);
             return this.loginInfo;
         }
@@ -152,6 +153,17 @@ namespace Crunchyroll.Api
         public Task<LoginInfo> LoginWithEtpRt(string etpRt)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<WatchlistEntry>> GetWatchlist(WatchlistOptions watchlistOptions)
+        {
+            var response = await this.httpClientWrapper.DoAsync(c =>
+               c.PostFormUrlEncoded<WatchlistOptions>(
+                   $"/content/v2/discover/{this.loginInfo.AccountId}/watchlist",
+                   this.ObjToQueryParams(watchlistOptions)
+               )
+           );
+            return await this.GetDataFromResponse<IEnumerable<WatchlistEntry>>(response);
         }
     }
 }
