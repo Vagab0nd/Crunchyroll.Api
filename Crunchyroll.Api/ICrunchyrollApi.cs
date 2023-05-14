@@ -1,5 +1,6 @@
 ﻿using Crunchyroll.Api.Models;
 using Crunchyroll.Api.Models.Authentication;
+using Crunchyroll.Api.Models.Watchlist;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -26,9 +27,16 @@ namespace Crunchyroll.Api
         /// <returns></returns>
         Task<LoginInfo> LoginWithRefreshToken(string refreshToken);
 
+        /// <summary>
+        /// Login to crunchyroll Api using etp_rt. It can be obtained by copying it from the cookie named "etp_rt" in the browser on https://beta-api.crunchyroll.com/. Need to be logged into crunchyroll account.
+        /// </summary>
+        /// <param name="etpRt"></param>
+        /// <returns></returns>
+        Task<LoginInfo> LoginWithEtpRt(string etpRt);
+
         Task<object> AddToQueue(int seriesId);
 
-        Task<IEnumerable<QueueEntry>> ListQueue(MediaType mediaType = MediaType.Anime | MediaType.Drama);
+        Task<IEnumerable<WatchlistEntry>> GetWatchlist(WatchlistOptions watchlistOptions);
 
         Task<T> GetInfo<T>(int id) where T : IInfo;
 

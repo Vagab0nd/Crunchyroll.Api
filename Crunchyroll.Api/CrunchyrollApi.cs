@@ -148,5 +148,10 @@ namespace Crunchyroll.Api
             this.loginInfo = await this.GetDataFromResponse<LoginInfo>(response);
             return this.loginInfo;
         }
+
+        public Task<LoginInfo> LoginWithEtpRt(string etpRt)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
