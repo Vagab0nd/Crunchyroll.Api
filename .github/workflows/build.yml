@@ -6,8 +6,8 @@ name: Build
 on:
   push:
     branches: [ "main", "release/*" ]
-  pull_request:
-    branches: [ "main", "release/*" ]
+  pull_request_target:
+    types: [assigned, opened, synchronize, reopened]
   schedule:
     - cron: '0 5 * * 0'
 jobs:
@@ -33,5 +33,3 @@ jobs:
     - name: Publish to GitHub
       if: startsWith(github.ref, 'refs/heads/release')
       run: nuget push **\*.nupkg -k ${{ secrets.GITHUB_TOKEN }} -s https://nuget.pkg.github.com/Vagab0nd/index.json --skip-duplicate
-
-
