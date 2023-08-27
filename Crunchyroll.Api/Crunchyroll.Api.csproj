@@ -11,7 +11,7 @@
     <PackageProjectUrl>https://github.com/Vagab0nd/Crunchyroll.Api</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Vagab0nd/Crunchyroll.Api</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>crunchyroll, api</PackageTags>
+    <PackageTags>crunchyroll api anime</PackageTags>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
 	<PackageReleaseNotes>Add README</PackageReleaseNotes>
 	<LangVersion>latest</LangVersion>
