@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
-namespace Crunchyroll.Api.Extensions
+namespace Crunchyroll.Api.Infrastructure.Extensions
 {
     internal static class EnumExtensions
     {
