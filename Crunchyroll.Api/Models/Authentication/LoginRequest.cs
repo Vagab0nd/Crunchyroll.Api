@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json.Converters;
-using Newtonsoft.Json;
+﻿using Crunchyroll.Api.Infrastructure;
+using System.Runtime.Serialization;
 
 namespace Crunchyroll.Api.Models.Authentication
 {
@@ -22,7 +22,6 @@ namespace Crunchyroll.Api.Models.Authentication
 
         public string Password { get; }
 
-        [JsonConverter(typeof(StringEnumConverter), true)]
         public GrantType GrantType { get; }
 
         public string RefreshToken { get; }

@@ -4,7 +4,7 @@ using System;
 
 namespace Crunchyroll.Api.Models
 {
-    public class Media : IInfo
+    public class Media
     {
         /// <summary>
         /// Information regarding the medias availability

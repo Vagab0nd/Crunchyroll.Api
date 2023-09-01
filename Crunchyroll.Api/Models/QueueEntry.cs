@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Crunchyroll.Api.Models
+﻿namespace Crunchyroll.Api.Models
 {
     public class QueueEntry
     {

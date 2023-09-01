@@ -1,11 +1,10 @@
-using Crunchyroll.Api.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Crunchyroll.Api.Test
 {
-    [TestClass, Ignore]
+    [TestClass]
     public class CrunchyrollApiTests
     {
         private ICrunchyrollApi target;
@@ -13,64 +12,21 @@ namespace Crunchyroll.Api.Test
         public TestContext TestContext { get; set; }
 
         [TestInitialize]
-        public async Task _Init()
+        public async Task _Initialize()
         {
             this.target = new CrunchyrollApi();
-            var response = await this.target.LoginWithPassword(TestContext.Properties["Login"]?.ToString(), TestContext.Properties["Pass"]?.ToString());
+            var response = await this.target.LoginWithPassword(this.TestContext.Properties["Login"]?.ToString(), this.TestContext.Properties["Pass"]?.ToString());
             Assert.IsNotNull(response);
         }
 
         [TestMethod]
-        public async Task ListMedia_should_return_series_media()
+        public async Task GetWatchlist_should_return_watchlist()
         {
-            var response = await this.target.ListMedia(25234, true);
+            var response = await this.target.GetWatchlist(new Models.Watchlist.WatchlistOptions());
 
-            Assert.IsTrue(response.Count() > 0);
-
-        }
-
-        [TestMethod]
-        public async Task ListQueue_should_return_queue()
-        {
-            var response = await this.target.ListQueue(MediaType.Anime);
-
+            Assert.IsNotNull(response);
             Assert.IsTrue(response.Count() > 0);
         }
 
-        [TestMethod]
-        public async Task GetInfo_should_return_series_info()
-        {
-            var response = await this.target.GetInfo<Series>(279979);
-
-            Assert.IsTrue(response != null);
-
-        }
-
-        [TestMethod]
-        public async Task GetInfo_should_return_collection_info()
-        {
-            var response = await this.target.GetInfo<Collection>(25234);
-
-            Assert.IsTrue(response != null);
-
-        }
-
-        [TestMethod]
-        public async Task GetInfo_should_return_media_info()
-        {
-            var response = await this.target.GetInfo<Media>(797875);
-
-            Assert.IsTrue(response != null);
-
-        }
-
-        [TestMethod]
-        public async Task ListCollections_should_return_collections()
-        {
-            var response = await this.target.ListCollections(279979);
-
-            Assert.IsTrue(response != null);
-
-        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Crunchyroll.Api.Models
 {
-    public class Collection : IInfo
+    public class Collection
     {
         public string AvailabilityNotes { get; set; }
         public string Class { get; set; }
