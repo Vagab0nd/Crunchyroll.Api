@@ -3,11 +3,6 @@
     public record WatchlistEntry
     {
         /// <summary>
-        /// Watchlist entry id.
-        /// </summary>
-        public string Id { get; init; }
-
-        /// <summary>
         /// Has entry been added recently.
         /// </summary>
         public bool New { get; init; }
@@ -29,6 +24,6 @@
 
         public int Playhead { get; init; }
 
-        public Series Series { get; set; }
+        public string Panel { get; init; }
     }
 }

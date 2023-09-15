@@ -1,5 +1,5 @@
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Crunchyroll.Api.Test
@@ -22,10 +22,11 @@ namespace Crunchyroll.Api.Test
         [TestMethod]
         public async Task GetWatchlist_should_return_watchlist()
         {
+            //act
             var response = await this.target.GetWatchlist(new Models.Watchlist.WatchlistOptions());
 
-            Assert.IsNotNull(response);
-            Assert.IsTrue(response.Count() > 0);
+            //assert
+            response.Should().NotBeNullOrEmpty();
         }
 
     }
