@@ -1,4 +1,4 @@
-﻿namespace Crunchyroll.Api.Models
+﻿namespace Crunchyroll.Api.Models.Common
 {
     public static class Locale
     {

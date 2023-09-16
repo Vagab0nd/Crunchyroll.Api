@@ -1,7 +1,4 @@
-﻿using Crunchyroll.Api.Infrastructure;
-using System.Runtime.Serialization;
-
-namespace Crunchyroll.Api.Models.Authentication
+﻿namespace Crunchyroll.Api.Models.Authentication
 {
     internal record LoginRequest
     {

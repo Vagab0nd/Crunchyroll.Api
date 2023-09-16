@@ -1,5 +1,7 @@
 ﻿using Crunchyroll.Api.Models.Authentication;
+using Crunchyroll.Api.Models.Common;
 using Crunchyroll.Api.Models.Response;
+using Crunchyroll.Api.Models.WatchHistory;
 using Crunchyroll.Api.Models.Watchlist;
 using System;
 using System.Threading;
@@ -34,6 +36,14 @@ namespace Crunchyroll.Api
         /// <returns></returns>
         Task<LoginInfo> LoginWithEtpRt(string etpRt, CancellationToken cancellationToken = default);
 
-        Task<WatchlistEntry[]> GetWatchlist(WatchlistOptions watchlistOptions = null, CancellationToken cancellationToken = default);        
+        Task<WatchlistEntry[]> GetWatchlist(WatchlistOptions watchlistOptions = null, CancellationToken cancellationToken = default);
+
+        Task<HistoryEpisode[]> GetWatchHistory(WatchHistoryOptions watchHistoryOptions = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Set locale for crunchyroll media.
+        /// </summary>
+        /// <param name="locale">See <see cref="Locale"/> for available values.</param>
+        void SetLocale(string locale);
     }
 }
