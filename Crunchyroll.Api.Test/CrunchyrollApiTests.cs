@@ -1,3 +1,4 @@
+using Crunchyroll.Api.Models.Common;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;

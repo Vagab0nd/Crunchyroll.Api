@@ -1,6 +1,7 @@
 ﻿namespace Crunchyroll.Api.Models.Common
 {
     public record Panel {
+
         public string Title { get; init; }
 
         public string PromoTitle { get; init; }

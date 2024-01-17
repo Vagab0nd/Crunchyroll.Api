@@ -25,7 +25,7 @@ namespace Crunchyroll.Api
 
         public CrunchyrollApi(string locale = Locale.US)
         {
-            this.locale = locale;
+            this.SetLocale(locale);
             FlurlHttp.Clients.WithDefaults(builder =>
             {
                 var settings = builder.Settings;
@@ -35,7 +35,7 @@ namespace Crunchyroll.Api
                     PropertyNamingPolicy = new JsonSnakeCaseNamingPolicy()             
                 };
                 settings.JsonSerializer = new DefaultJsonSerializer(jsonSettings);
-                settings.UrlEncodedSerializer = new SnakeCaseUrlEncodedSerializer(true);              
+                settings.UrlEncodedSerializer = new SnakeCaseUrlEncodedSerializer(true);      
 #if DEBUG
                 builder.OnError(this.DebugFlurlError);
 #endif
@@ -82,6 +82,7 @@ namespace Crunchyroll.Api
                 .AppendPathSegment($"/content/v2/discover/{this.loginInfo.AccountId}/watchlist")
                 .WithOAuthBearerToken(this.loginInfo.AccessToken)
                 .SetQueryParams(watchlistOptions ?? new WatchlistOptions())
+                .AppendQueryParam(new { this.locale }) //TODO: Find a better way to add locale in more generic way. Middleware in flurl?
                 .GetJsonAsync<Response<WatchlistEntry[]>>(cancellationToken: cancellationToken)
                 .UnpackResponse()
                 .ConfigureAwait(false);
@@ -93,6 +94,7 @@ namespace Crunchyroll.Api
                 .AppendPathSegment($"/content/v1/watch-history/{this.loginInfo.AccountId}")
                 .WithOAuthBearerToken(this.loginInfo.AccessToken)
                 .SetQueryParams(watchHistoryOptions ?? new WatchHistoryOptions())
+                .AppendQueryParam(new { this.locale })
                 .GetJsonAsync<Response<HistoryEpisode[]>>(cancellationToken: cancellationToken)
                 .UnpackResponse()
                 .ConfigureAwait(false);
