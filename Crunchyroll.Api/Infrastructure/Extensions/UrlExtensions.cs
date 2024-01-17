@@ -5,7 +5,7 @@ namespace Crunchyroll.Api.Infrastructure.Extensions
 {
     internal static class UrlExtensions
     {
-        private const string authorizationHeaderValue = "Basic aHJobzlxM2F3dnNrMjJ1LXRzNWE6cHROOURteXRBU2Z6QjZvbXVsSzh6cUxzYTczVE1TY1k=";
+        private const string authorizationHeaderValue = "Basic b2VkYXJteHN0bGgxanZhd2ltbnE6OWxFaHZIWkpEMzJqdVY1ZFc5Vk9TNTdkb3BkSnBnbzE=";
 
         public static IFlurlRequest WithCrunchyrollBasicAuth(this Url url)
         {
