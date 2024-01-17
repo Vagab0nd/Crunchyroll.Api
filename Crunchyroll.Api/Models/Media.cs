@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using Crunchyroll.Api.Models.Common;
 using System;
+using System.Text.Json.Serialization;
 
 namespace Crunchyroll.Api.Models
 {
@@ -83,7 +83,7 @@ namespace Crunchyroll.Api.Models
         /// <summary>
         /// What type the media is
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public MediaType MediaType { get; set; }
 
         /// <summary>

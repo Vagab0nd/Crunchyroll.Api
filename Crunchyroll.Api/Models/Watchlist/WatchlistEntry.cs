@@ -1,4 +1,6 @@
-﻿namespace Crunchyroll.Api.Models.Watchlist
+﻿using Crunchyroll.Api.Models.Common;
+
+namespace Crunchyroll.Api.Models.Watchlist
 {
     public record WatchlistEntry
     {
@@ -24,6 +26,6 @@
 
         public int Playhead { get; init; }
 
-        public string Panel { get; init; }
+        public Panel Panel { get; init; }
     }
 }

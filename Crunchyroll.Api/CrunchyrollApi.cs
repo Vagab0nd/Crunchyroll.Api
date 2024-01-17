@@ -1,6 +1,5 @@
 ﻿using Crunchyroll.Api.Infrastructure;
 using Crunchyroll.Api.Infrastructure.Extensions;
-using Crunchyroll.Api.Models;
 using Crunchyroll.Api.Models.Authentication;
 using Crunchyroll.Api.Models.Common;
 using Crunchyroll.Api.Models.Response;
@@ -9,10 +8,10 @@ using Crunchyroll.Api.Models.Watchlist;
 using Flurl;
 using Flurl.Http;
 using Flurl.Http.Configuration;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using System;
 using System.Diagnostics;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -27,21 +26,18 @@ namespace Crunchyroll.Api
         public CrunchyrollApi(string locale = Locale.US)
         {
             this.locale = locale;
-            FlurlHttp.Configure(settings =>
+            FlurlHttp.Clients.WithDefaults(builder =>
             {
-                var jsonSettings = new JsonSerializerSettings
+                var settings = builder.Settings;
+                var jsonSettings = new JsonSerializerOptions
                 {
-                    NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
-                    ObjectCreationHandling = ObjectCreationHandling.Replace,
-                    ContractResolver = new DefaultContractResolver
-                    {
-                        NamingStrategy = new SnakeCaseNamingStrategy()
-                    }                    
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                    PropertyNamingPolicy = new JsonSnakeCaseNamingPolicy()             
                 };
-                settings.JsonSerializer = new NewtonsoftJsonSerializer(jsonSettings);
-                settings.UrlEncodedSerializer = new SnakeCaseUrlEncodedSerializer(true);
+                settings.JsonSerializer = new DefaultJsonSerializer(jsonSettings);
+                settings.UrlEncodedSerializer = new SnakeCaseUrlEncodedSerializer(true);              
 #if DEBUG
-                settings.OnErrorAsync = this.DebugFlurlError;
+                builder.OnError(this.DebugFlurlError);
 #endif
             });
             
@@ -66,7 +62,7 @@ namespace Crunchyroll.Api
             var loginInfo = await baseUri
                 .AppendPathSegment("/auth/v1/token")
                 .WithCrunchyrollBasicAuth()
-                .PostUrlEncodedAsync(loginRequest, cancellationToken)
+                .PostUrlEncodedAsync(loginRequest, cancellationToken: cancellationToken)
                 .ReceiveJson<LoginInfo>()
                 .ConfigureAwait(false);
 
@@ -86,7 +82,7 @@ namespace Crunchyroll.Api
                 .AppendPathSegment($"/content/v2/discover/{this.loginInfo.AccountId}/watchlist")
                 .WithOAuthBearerToken(this.loginInfo.AccessToken)
                 .SetQueryParams(watchlistOptions ?? new WatchlistOptions())
-                .GetJsonAsync<Response<WatchlistEntry[]>>(cancellationToken)
+                .GetJsonAsync<Response<WatchlistEntry[]>>(cancellationToken: cancellationToken)
                 .UnpackResponse()
                 .ConfigureAwait(false);
         }
@@ -97,7 +93,7 @@ namespace Crunchyroll.Api
                 .AppendPathSegment($"/content/v1/watch-history/{this.loginInfo.AccountId}")
                 .WithOAuthBearerToken(this.loginInfo.AccessToken)
                 .SetQueryParams(watchHistoryOptions ?? new WatchHistoryOptions())
-                .GetJsonAsync<Response<HistoryEpisode[]>>(cancellationToken)
+                .GetJsonAsync<Response<HistoryEpisode[]>>(cancellationToken: cancellationToken)
                 .UnpackResponse()
                 .ConfigureAwait(false);
         }
@@ -106,6 +102,13 @@ namespace Crunchyroll.Api
         {
             Debug.WriteLine(call.RequestBody, "RequestBody");
             Debug.WriteLine(await call.Response.ResponseMessage.Content.ReadAsStringAsync(), "ResponseMessageContent");
+        }
+
+        public void SetLocale(string locale)
+        {
+            //if()
+
+            this.locale = locale;
         }
     }
 }
