@@ -106,7 +106,10 @@ namespace Crunchyroll.Api
 
         public void SetLocale(string locale)
         {
-            //if()
+            if(string.IsNullOrWhiteSpace(locale))
+            {
+                throw new ArgumentException("Local cannot be null or empty or whitespace.", nameof(locale));
+            }
 
             this.locale = locale;
         }
