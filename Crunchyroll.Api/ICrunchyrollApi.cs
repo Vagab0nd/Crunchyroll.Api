@@ -1,6 +1,5 @@
 ﻿using Crunchyroll.Api.Models.Authentication;
 using Crunchyroll.Api.Models.Common;
-using Crunchyroll.Api.Models.Response;
 using Crunchyroll.Api.Models.WatchHistory;
 using Crunchyroll.Api.Models.Watchlist;
 using System;

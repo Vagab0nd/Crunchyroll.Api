@@ -7,14 +7,9 @@ using System.IO;
 
 namespace Crunchyroll.Api.Infrastructure
 {
-    internal sealed class SnakeCaseUrlEncodedSerializer : ISerializer
+    internal sealed class SnakeCaseUrlEncodedSerializer(bool serializeEnumValueLowercase = false) : ISerializer
     {
-        private readonly bool serializeEnumValueLowercase;
-
-        public SnakeCaseUrlEncodedSerializer(bool serializeEnumValueLowercase = false)
-        {
-            this.serializeEnumValueLowercase = serializeEnumValueLowercase;
-        }
+        private readonly bool serializeEnumValueLowercase = serializeEnumValueLowercase;
 
         /// <summary>
         /// Serializes the specified object. Based on DefaultUrlEncodedSerializer.
