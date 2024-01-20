@@ -29,4 +29,7 @@
 	 <PackagePath>\</PackagePath>
 	</None>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Media\" />
+  </ItemGroup>
 </Project>

@@ -24,7 +24,7 @@
 
         public string Type { get; init; }
 
-        //Images
+        public Images Images { get; init; }
 
         //EpisodeMetadata
     }

@@ -1,12 +1,12 @@
-﻿using Crunchyroll.Api.Infrastructure;
+﻿using System.Runtime.Serialization;
 
 namespace Crunchyroll.Api.Models.Watchlist
 {
     public enum WatchlistOrder
     {
-        [StringValue("desc")]
+        [EnumMember(Value = "desc")]
         Newest = 1,
-        [StringValue("asc")]
+        [EnumMember(Value = "asc")]
         Oldest = 2,
     }
 }

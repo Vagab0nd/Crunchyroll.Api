@@ -1,12 +1,12 @@
-﻿using Crunchyroll.Api.Infrastructure;
+﻿using System.Runtime.Serialization;
 
 namespace Crunchyroll.Api.Models.Common
 {
     public enum MediaType
     {
-        [StringValue("series")]
+        [EnumMember(Value = "series")]
         Series = 1,
-        [StringValue("movie_listing")]
+        [EnumMember(Value = "movie_listing")]
         Movies = 2,
     }
 }

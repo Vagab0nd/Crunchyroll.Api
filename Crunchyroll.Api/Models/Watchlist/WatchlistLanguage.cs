@@ -1,11 +1,11 @@
-﻿using Crunchyroll.Api.Infrastructure;
+﻿using System.Runtime.Serialization;
 namespace Crunchyroll.Api.Models.Watchlist
 {
     public enum WatchlistLanguage
     {
-        [StringValue("subbed")]
+        [EnumMember(Value = "subbed")]
         Subbed = 1,
-        [StringValue("dubbed")]
+        [EnumMember(Value = "dubbed")]
         Dubbed = 2
     }
 }

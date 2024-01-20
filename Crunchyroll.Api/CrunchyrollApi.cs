@@ -32,7 +32,8 @@ namespace Crunchyroll.Api
                 var jsonSettings = new JsonSerializerOptions
                 {
                     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-                    PropertyNamingPolicy = new JsonSnakeCaseNamingPolicy()             
+                    PropertyNamingPolicy = new JsonSnakeCaseNamingPolicy(),
+                    Converters = { new JsonEnumMemberStringEnumConverter() }
                 };
                 settings.JsonSerializer = new DefaultJsonSerializer(jsonSettings);
                 settings.UrlEncodedSerializer = new SnakeCaseUrlEncodedSerializer(true);      

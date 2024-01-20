@@ -1,16 +1,16 @@
-﻿using Crunchyroll.Api.Infrastructure;
+﻿using System.Runtime.Serialization;
 
 namespace Crunchyroll.Api.Models.Watchlist
 {
     public enum WatchlistSort
     {
-        [StringValue("date_updated")]
+        [EnumMember(Value = "date_updated")]
         Updated = 1,
-        [StringValue("date_watched")]
+        [EnumMember(Value = "date_watched")]
         Watched = 2,
-        [StringValue("date_added")]
+        [EnumMember(Value = "date_added")]
         Added = 3,
-        [StringValue("alphabetical")]
+        [EnumMember(Value = "alphabetical")]
         Alphabetical = 4
     }
 }
