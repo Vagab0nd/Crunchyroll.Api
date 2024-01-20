@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Crunchyroll.Api.Infrastructure
 {
-    internal class CrunchyrollHttpClientWrapper : IDisposable
+    internal sealed class CrunchyrollHttpClientWrapper : IDisposable
     {
         private static readonly SemaphoreSlim semaphore = new(5, 5);
 

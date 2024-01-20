@@ -2,11 +2,10 @@
 
 namespace Crunchyroll.Api.Infrastructure
 {
-    public class JsonNamingPolicyDecorator : JsonNamingPolicy
+    internal class JsonNamingPolicyDecorator(JsonNamingPolicy underlyingNamingPolicy) : JsonNamingPolicy
     {
-        readonly JsonNamingPolicy underlyingNamingPolicy;
+        readonly JsonNamingPolicy underlyingNamingPolicy = underlyingNamingPolicy;
 
-        public JsonNamingPolicyDecorator(JsonNamingPolicy underlyingNamingPolicy) => this.underlyingNamingPolicy = underlyingNamingPolicy;
         public override string ConvertName(string name) => this.underlyingNamingPolicy?.ConvertName(name) ?? name;
     }
 }
