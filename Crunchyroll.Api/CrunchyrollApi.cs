@@ -19,7 +19,7 @@ namespace Crunchyroll.Api
 {
     public class CrunchyrollApi : ICrunchyrollApi
     {
-        private const string baseUri = "https://beta-api.crunchyroll.com";
+        private const string baseUri = "https://www.crunchyroll.com";
         private string locale;
         private LoginInfo loginInfo;
 
