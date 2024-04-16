@@ -30,7 +30,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal -- TestRunParameters.Parameter\(name=\"Login\", value=\"${{ secrets.CR_LOGIN }}\"\) -- TestRunParameters.Parameter\(name=\"Pass\", value=\"${{ secrets.CR_PASS }}\"\)  
     - name: Publish to Nuget.org
       if: startsWith(github.ref, 'refs/heads/release')
-      run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}} --skip-duplicate
+      run: dotnet nuget push **\*.nupkg -s 'https://api.nuget.org/v3/index.json' -k ${{secrets.NUGET_API_KEY}} --skip-duplicate
     - name: Publish to GitHub
       if: startsWith(github.ref, 'refs/heads/release')
-      run: nuget push **\*.nupkg -k ${{ secrets.GITHUB_TOKEN }} -s https://nuget.pkg.github.com/Vagab0nd/index.json --skip-duplicate
+      run: dotnet nuget push **\*.nupkg -k ${{ secrets.GITHUB_TOKEN }} -s https://nuget.pkg.github.com/Vagab0nd/index.json --skip-duplicate
