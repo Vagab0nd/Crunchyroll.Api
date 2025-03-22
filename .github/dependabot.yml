@@ -9,4 +9,7 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
-      
+    groups:
+      test-packages:
+        patterns:
+          - "*test*"      
